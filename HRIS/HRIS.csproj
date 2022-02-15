@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.1.1" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.tools" Version="3.1.1">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="DPCtlUruNet">
+      <HintPath>C:\Windows\assembly\GAC_MSIL\DPCtlUruNet\1.0.0.1__7f32ef930fec5e5f\DPCtlUruNet.dll</HintPath>
+    </Reference>
+    <Reference Include="DPUruNet">
+      <HintPath>C:\Windows\assembly\GAC_MSIL\DPUruNet\1.0.0.1__7f32ef930fec5e5f\DPUruNet.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
