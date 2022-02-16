@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Newtech\\SourceCode\\C#\\HRIS\\HRIS\\HRIS.csproj": {}
+    "E:\\Newtech\\SourceCode\\C#\\HRIS\\HRIS\\HRIS\\HRIS.csproj": {}
   },
   "projects": {
-    "E:\\Newtech\\SourceCode\\C#\\HRIS\\HRIS\\HRIS.csproj": {
+    "E:\\Newtech\\SourceCode\\C#\\HRIS\\HRIS\\HRIS\\HRIS.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Newtech\\SourceCode\\C#\\HRIS\\HRIS\\HRIS.csproj",
+        "projectUniqueName": "E:\\Newtech\\SourceCode\\C#\\HRIS\\HRIS\\HRIS\\HRIS.csproj",
         "projectName": "HRIS",
-        "projectPath": "E:\\Newtech\\SourceCode\\C#\\HRIS\\HRIS\\HRIS.csproj",
+        "projectPath": "E:\\Newtech\\SourceCode\\C#\\HRIS\\HRIS\\HRIS\\HRIS.csproj",
         "packagesPath": "C:\\Users\\wilso\\.nuget\\packages\\",
-        "outputPath": "E:\\Newtech\\SourceCode\\C#\\HRIS\\HRIS\\obj\\",
+        "outputPath": "E:\\Newtech\\SourceCode\\C#\\HRIS\\HRIS\\HRIS\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\wilso\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -40,15 +40,31 @@
         "netcoreapp3.1": {
           "targetAlias": "netcoreapp3.1",
           "dependencies": {
+            "Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.22, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[3.1.22, )"
+            },
+            "Microsoft.AspNetCore.Identity.UI": {
+              "target": "Package",
+              "version": "[3.1.22, )"
+            },
             "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[3.1.1, )"
+              "version": "[3.1.21, )"
             },
-            "Microsoft.EntityFrameworkCore.tools": {
+            "Microsoft.EntityFrameworkCore.Tools": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
               "suppressParent": "All",
               "target": "Package",
-              "version": "[3.1.1, )"
+              "version": "[3.1.21, )"
+            },
+            "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
+              "target": "Package",
+              "version": "[3.1.5, )"
             }
           },
           "imports": [
