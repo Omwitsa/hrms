@@ -1,8 +1,9 @@
-﻿@model HRIS.Models.AcademicRank
+﻿@model HRIS.Models.Branch
 
 @{
     ViewData["Title"] = "Create";
 }
+
 <div class="main-body">
     <div class="page-wrapper">
         <div class="page-body">
@@ -24,11 +25,10 @@
                             <input asp-for="Notes" class="form-control" />
                             <span asp-validation-for="Notes" class="text-danger"></span>
                         </div>
-                        <div class="form-group">
-                            @*<input asp-for="Closed" class="form-control" type="checkbox" />*@
-                            <input type="checkbox" id="Closed" name="Closed" @((Model.Closed == false ? "" : "checked")) />
-                            <label asp-for="Closed" class="control-label"></label>
-                            <span asp-validation-for="Closed" class="text-danger"></span>
+                        <div class="form-group form-check">
+                            <label class="form-check-label">
+                                <input class="form-check-input" asp-for="Closed" /> @Html.DisplayNameFor(model => model.Closed)
+                            </label>
                         </div>
                         <div class="form-group">
                             <input type="submit" value="Create" class="btn btn-primary" />

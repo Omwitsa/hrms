@@ -14,7 +14,7 @@ namespace HRIS.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Notes = table.Column<string>(nullable: true),
-                    Closed = table.Column<bool>(nullable: true)
+                    Closed = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -71,7 +71,7 @@ namespace HRIS.Migrations
                     TelNo = table.Column<string>(nullable: true),
                     Email = table.Column<string>(nullable: true),
                     Address = table.Column<string>(nullable: true),
-                    Closed = table.Column<bool>(nullable: true),
+                    Closed = table.Column<bool>(nullable: false),
                     Notes = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -86,7 +86,7 @@ namespace HRIS.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Notes = table.Column<string>(nullable: true),
-                    Closed = table.Column<bool>(nullable: true)
+                    Closed = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -99,7 +99,7 @@ namespace HRIS.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    Closed = table.Column<bool>(nullable: true),
+                    Closed = table.Column<bool>(nullable: false),
                     Notes = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -113,7 +113,7 @@ namespace HRIS.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    Closed = table.Column<bool>(nullable: true),
+                    Closed = table.Column<bool>(nullable: false),
                     Notes = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -128,7 +128,7 @@ namespace HRIS.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     IsStudent = table.Column<bool>(nullable: false),
-                    Closed = table.Column<bool>(nullable: true),
+                    Closed = table.Column<bool>(nullable: false),
                     Notes = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -142,7 +142,7 @@ namespace HRIS.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    Closed = table.Column<bool>(nullable: true),
+                    Closed = table.Column<bool>(nullable: false),
                     Notes = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -156,7 +156,7 @@ namespace HRIS.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    Closed = table.Column<bool>(nullable: true),
+                    Closed = table.Column<bool>(nullable: false),
                     Notes = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -170,7 +170,7 @@ namespace HRIS.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    Closed = table.Column<bool>(nullable: true),
+                    Closed = table.Column<bool>(nullable: false),
                     Notes = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -233,7 +233,7 @@ namespace HRIS.Migrations
                     Cell = table.Column<string>(nullable: true),
                     TelNo = table.Column<string>(nullable: true),
                     Web = table.Column<string>(nullable: true),
-                    Terminated = table.Column<bool>(nullable: true),
+                    Terminated = table.Column<bool>(nullable: false),
                     TerminationDate = table.Column<DateTime>(nullable: true),
                     TerminationType = table.Column<string>(nullable: true),
                     TerminationNotes = table.Column<string>(nullable: true),
@@ -259,7 +259,7 @@ namespace HRIS.Migrations
                     Period = table.Column<string>(nullable: true),
                     Type = table.Column<string>(nullable: true),
                     Branch = table.Column<string>(nullable: true),
-                    Recur = table.Column<bool>(nullable: true),
+                    Recur = table.Column<bool>(nullable: false),
                     Notes = table.Column<string>(nullable: true),
                     Personnel = table.Column<string>(nullable: true),
                     CreatedDate = table.Column<DateTime>(nullable: true),
@@ -289,7 +289,7 @@ namespace HRIS.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Notes = table.Column<string>(nullable: true),
-                    Closed = table.Column<bool>(nullable: true)
+                    Closed = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -347,7 +347,7 @@ namespace HRIS.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Notes = table.Column<string>(nullable: true),
-                    Closed = table.Column<bool>(nullable: true)
+                    Closed = table.Column<bool>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -396,10 +396,10 @@ namespace HRIS.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    Closed = table.Column<bool>(nullable: true),
+                    Closed = table.Column<bool>(nullable: false),
                     Notes = table.Column<string>(nullable: true),
-                    IsCalenderDays = table.Column<bool>(nullable: true),
-                    ExcludeHolidays = table.Column<bool>(nullable: true),
+                    IsCalenderDays = table.Column<bool>(nullable: false),
+                    ExcludeHolidays = table.Column<bool>(nullable: false),
                     Personnel = table.Column<string>(nullable: true),
                     CreatedDate = table.Column<DateTime>(nullable: true),
                     ModifiedDate = table.Column<DateTime>(nullable: true)
@@ -415,7 +415,7 @@ namespace HRIS.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    Closed = table.Column<bool>(nullable: true),
+                    Closed = table.Column<bool>(nullable: false),
                     Notes = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -429,7 +429,7 @@ namespace HRIS.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    Closed = table.Column<bool>(nullable: true),
+                    Closed = table.Column<bool>(nullable: false),
                     Notes = table.Column<string>(nullable: true)
                 },
                 constraints: table =>

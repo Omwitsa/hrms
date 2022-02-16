@@ -11,7 +11,7 @@ namespace HRIS.Models
 		public string TelNo { get; set; }
 		public string Email { get; set; }
 		public string Address { get; set; }
-		public bool? Closed { get; set; }
+		public bool Closed { get; set; }
 		public string Notes { get; set; }
 	}
 }

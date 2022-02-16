@@ -168,3 +168,8 @@ E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\Razor\Views\Acad
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\Razor\Views\AcademicRanks\Details.cshtml.g.cs
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\Razor\Views\AcademicRanks\Edit.cshtml.g.cs
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\Razor\Views\AcademicRanks\Index.cshtml.g.cs
+E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\Razor\Views\Branches\Create.cshtml.g.cs
+E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\Razor\Views\Branches\Delete.cshtml.g.cs
+E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\Razor\Views\Branches\Details.cshtml.g.cs
+E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\Razor\Views\Branches\Edit.cshtml.g.cs
+E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\Razor\Views\Branches\Index.cshtml.g.cs

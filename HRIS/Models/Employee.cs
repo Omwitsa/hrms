@@ -37,7 +37,7 @@ namespace HRIS.Models
 		public string Cell { get; set; }
 		public string TelNo { get; set; }
 		public string Web { get; set; }
-		public bool? Terminated { get; set; }
+		public bool Terminated { get; set; }
 		public DateTime? TerminationDate { get; set; }
 		public string TerminationType { get; set; }
 		public string TerminationNotes { get; set; }

@@ -25,7 +25,7 @@ namespace HRIS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool?>("Closed")
+                    b.Property<bool>("Closed")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -51,7 +51,7 @@ namespace HRIS.Migrations
                     b.Property<string>("Branch")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("Closed")
+                    b.Property<bool>("Closed")
                         .HasColumnType("bit");
 
                     b.Property<string>("Code")
@@ -80,7 +80,7 @@ namespace HRIS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool?>("Closed")
+                    b.Property<bool>("Closed")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -100,7 +100,7 @@ namespace HRIS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool?>("Closed")
+                    b.Property<bool>("Closed")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -120,7 +120,7 @@ namespace HRIS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool?>("Closed")
+                    b.Property<bool>("Closed")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -140,7 +140,7 @@ namespace HRIS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool?>("Closed")
+                    b.Property<bool>("Closed")
                         .HasColumnType("bit");
 
                     b.Property<bool>("IsStudent")
@@ -163,7 +163,7 @@ namespace HRIS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool?>("Closed")
+                    b.Property<bool>("Closed")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -183,7 +183,7 @@ namespace HRIS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool?>("Closed")
+                    b.Property<bool>("Closed")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -203,7 +203,7 @@ namespace HRIS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool?>("Closed")
+                    b.Property<bool>("Closed")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -321,7 +321,7 @@ namespace HRIS.Migrations
                     b.Property<string>("TelNo")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("Terminated")
+                    b.Property<bool>("Terminated")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("TerminationDate")
@@ -429,7 +429,7 @@ namespace HRIS.Migrations
                     b.Property<string>("Personnel")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<bool?>("Recur")
+                    b.Property<bool>("Recur")
                         .HasColumnType("bit");
 
                     b.Property<string>("Type")
@@ -446,7 +446,7 @@ namespace HRIS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool?>("Closed")
+                    b.Property<bool>("Closed")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -553,7 +553,7 @@ namespace HRIS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool?>("Closed")
+                    b.Property<bool>("Closed")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -637,16 +637,16 @@ namespace HRIS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool?>("Closed")
+                    b.Property<bool>("Closed")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("CreatedDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<bool?>("ExcludeHolidays")
+                    b.Property<bool>("ExcludeHolidays")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("IsCalenderDays")
+                    b.Property<bool>("IsCalenderDays")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedDate")
@@ -672,7 +672,7 @@ namespace HRIS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool?>("Closed")
+                    b.Property<bool>("Closed")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
@@ -692,7 +692,7 @@ namespace HRIS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool?>("Closed")
+                    b.Property<bool>("Closed")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")
