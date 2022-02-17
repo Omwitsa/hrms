@@ -219,28 +219,94 @@
                                     </a>
                                     <ul class="pcoded-submenu">
                                         <li class=" ">
-                                            <a href="accordion.html">
+                                            <a asp-controller="Employees" asp-action="Index">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Employee</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Employees</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+
+                                        <li class=" ">
+                                            <a asp-controller="EmployeeDependants" asp-action="Index">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Employee Dependants</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
                                     </ul>
                                 </li>
 
-                                <li class="pcoded-hasmenu">
+                                <li class="pcoded-hasmenu ">
                                     <a href="javascript:void(0)">
-                                        <span class="pcoded-micon"><i class="ti-calendar"></i></span>
-                                        <span class="pcoded-mtext" data-i18n="nav.basic-components.main">Leave Management</span>
+                                        <span class="pcoded-micon"><i class="ti-direction-alt"></i><b>M</b></span>
+                                        <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Leave Management</span>
                                         <span class="pcoded-mcaret"></span>
                                     </a>
                                     <ul class="pcoded-submenu">
-                                        <li class=" ">
-                                            <a href="accordion.html">
+                                        <li class="">
+                                            <a asp-controller="LeaveApplications" asp-action="Index">
                                                 <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Leave Application</span>
+                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">Leave Application</span>
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
+                                        </li>
+                                        <li class="pcoded-hasmenu ">
+                                            <a href="javascript:void(0)">
+                                                <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22.main">Leave Settings</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                            <ul class="pcoded-submenu">
+                                                <li class="">
+                                                    <a asp-controller="LeaveTypes" asp-action="Index">
+                                                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                        <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22.menu-level-31">Leave Types</span>
+                                                        <span class="pcoded-mcaret"></span>
+                                                    </a>
+                                                </li>
+                                                <li class="">
+                                                    <a asp-controller="LeavePeriods" asp-action="Index">
+                                                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                        <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22.menu-level-31">Leave Periods</span>
+                                                        <span class="pcoded-mcaret"></span>
+                                                    </a>
+                                                </li>
+                                                <li class="">
+                                                    <a asp-controller="WorkingDays" asp-action="Index">
+                                                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                        <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22.menu-level-31">Working Days</span>
+                                                        <span class="pcoded-mcaret"></span>
+                                                    </a>
+                                                </li>
+                                                <li class="">
+                                                    <a asp-controller="LeaveGroups" asp-action="Index">
+                                                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                        <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22.menu-level-31">Leave Groups</span>
+                                                        <span class="pcoded-mcaret"></span>
+                                                    </a>
+                                                </li>
+                                                <li class="">
+                                                    <a asp-controller="Holidays" asp-action="Index">
+                                                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                        <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22.menu-level-31">Holidays</span>
+                                                        <span class="pcoded-mcaret"></span>
+                                                    </a>
+                                                </li>
+                                                <li class="">
+                                                    <a asp-controller="LeaveEntilements" asp-action="Index">
+                                                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                        <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22.menu-level-31">Leave Entilements</span>
+                                                        <span class="pcoded-mcaret"></span>
+                                                    </a>
+                                                </li>
+                                                <li class="">
+                                                    <a asp-controller="LeaveRules" asp-action="Index">
+                                                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                        <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22.menu-level-31">Leave Entilements</span>
+                                                        <span class="pcoded-mcaret"></span>
+                                                    </a>
+                                                </li>
+                                            </ul>
                                         </li>
                                     </ul>
                                 </li>
@@ -276,41 +342,88 @@
                                                 <span class="pcoded-mcaret"></span>
                                             </a>
                                         </li>
+                                        <li class=" ">
+                                            <a asp-controller="Departments" asp-action="Index">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Departments</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a asp-controller="Designations" asp-action="Index">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Designations</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a asp-controller="JobCategories" asp-action="Index">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Job Categories</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a asp-controller="EmpCategories" asp-action="Index">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Employment Categories</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a asp-controller="Sections" asp-action="Index">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Sections</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a asp-controller="AcademicRanks" asp-action="Index">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Academic Ranks</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a asp-controller="Races" asp-action="Index">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Ethnicities</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a asp-controller="Countries" asp-action="Index">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Countries</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a asp-controller="Counties" asp-action="Index">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Counties</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+                                        <li class=" ">
+                                            <a asp-controller="Divisions" asp-action="Index">
+                                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                                                <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Divisions</span>
+                                                <span class="pcoded-mcaret"></span>
+                                            </a>
+                                        </li>
+
+                                        @*<li class=" ">
+                    <a asp-controller="Banks" asp-action="Index">
+                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
+                        <span class="pcoded-mtext" data-i18n="nav.basic-components.alert">Banks</span>
+                        <span class="pcoded-mcaret"></span>
+                    </a>
+                </li>*@
                                     </ul>
                                 </li>
 
-                                @*<li class="pcoded-hasmenu ">
-            <a href="javascript:void(0)">
-                <span class="pcoded-micon"><i class="ti-direction-alt"></i><b>M</b></span>
-                <span class="pcoded-mtext" data-i18n="nav.menu-levels.main">Menu Levels</span>
-                <span class="pcoded-mcaret"></span>
-            </a>
-            <ul class="pcoded-submenu">
-                <li class="">
-                    <a href="javascript:void(0)">
-                        <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                        <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-21">Menu Level 2.1</span>
-                        <span class="pcoded-mcaret"></span>
-                    </a>
-                </li>
-                <li class="pcoded-hasmenu ">
-                    <a href="javascript:void(0)">
-                        <span class="pcoded-micon"><i class="ti-direction-alt"></i></span>
-                        <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22.main">Menu Level 2.2</span>
-                        <span class="pcoded-mcaret"></span>
-                    </a>
-                    <ul class="pcoded-submenu">
-                        <li class="">
-                            <a href="javascript:void(0)">
-                                <span class="pcoded-micon"><i class="ti-angle-right"></i></span>
-                                <span class="pcoded-mtext" data-i18n="nav.menu-levels.menu-level-22.menu-level-31">Menu Level 3.1</span>
-                                <span class="pcoded-mcaret"></span>
-                            </a>
-                        </li>
-                    </ul>
-                </li>
-            </ul>
-        </li>*@
+
                             </ul>
                         </div>
                     </nav>

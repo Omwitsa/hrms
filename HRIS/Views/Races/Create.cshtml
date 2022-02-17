@@ -1,0 +1,58 @@
+﻿@model HRIS.Models.Race
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="main-body">
+    <div class="page-wrapper">
+        <div class="page-body">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Create Ethnicity</h5>
+                    <h6><code></code></h6>
+                </div>
+
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <form asp-action="Create">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-group">
+                                    <label asp-for="Name" class="control-label"></label>
+                                    <input asp-for="Name" class="form-control" />
+                                    <span asp-validation-for="Name" class="text-danger"></span>
+                                </div>
+                                <div class="form-group form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" asp-for="Closed" /> @Html.DisplayNameFor(model => model.Closed)
+                                    </label>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Notes" class="control-label"></label>
+                                    <input asp-for="Notes" class="form-control" />
+                                    <span asp-validation-for="Notes" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Create" class="btn btn-primary" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div>
+                        <a asp-action="Index">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="styleSelector">
+
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

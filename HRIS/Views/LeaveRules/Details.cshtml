@@ -1,0 +1,92 @@
+﻿@model HRIS.Models.LeaveRule
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="main-body">
+    <div class="page-wrapper">
+        <div class="page-body">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Leave Rule Details</h5>
+                </div>
+
+                <div class="card-block">
+                    <div>
+                        <dl class="row">
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.LeaveGroup)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.LeaveGroup)
+                            </dd>
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.LeaveType)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.LeaveType)
+                            </dd>
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.LeaveDays)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.LeaveDays)
+                            </dd>
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.Gender)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.Gender)
+                            </dd>
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.StartDate)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.StartDate)
+                            </dd>
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.EndDate)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.EndDate)
+                            </dd>
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.Notes)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.Notes)
+                            </dd>
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.Personnel)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.Personnel)
+                            </dd>
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.CreatedDate)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.CreatedDate)
+                            </dd>
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.ModifiedDate)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.ModifiedDate)
+                            </dd>
+                        </dl>
+                    </div>
+                    <div>
+                        <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a> |
+                        <a asp-action="Index">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="styleSelector">
+
+    </div>
+</div>

@@ -1,0 +1,102 @@
+﻿@model IEnumerable<HRIS.Models.LeaveEntilement>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="main-body">
+    <div class="page-wrapper">
+        <div class="page-body">
+            <p>
+                <a asp-action="Create">Create New</a>
+            </p>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5>Leave Entilements</h5>
+                </div>
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Period)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.EmpNo)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.LeaveType)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Type)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Days)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Notes)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Personnel)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CreatedDate)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.ModifiedDate)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Period)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.EmpNo)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.LeaveType)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Type)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Days)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Notes)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Personnel)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CreatedDate)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.ModifiedDate)
+                                        </td>
+                                        <td>
+                                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="styleSelector">
+
+    </div>
+</div>

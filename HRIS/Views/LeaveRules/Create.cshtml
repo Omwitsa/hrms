@@ -1,0 +1,92 @@
+﻿@model HRIS.Models.LeaveRule
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<div class="main-body">
+    <div class="page-wrapper">
+        <div class="page-body">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Create Leave Rule</h5>
+                </div>
+
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <form asp-action="Create">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <div class="form-group">
+                                    <label asp-for="LeaveGroup" class="control-label"></label>
+                                    <input asp-for="LeaveGroup" class="form-control" />
+                                    <span asp-validation-for="LeaveGroup" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="LeaveType" class="control-label"></label>
+                                    <input asp-for="LeaveType" class="form-control" />
+                                    <span asp-validation-for="LeaveType" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="LeaveDays" class="control-label"></label>
+                                    <input asp-for="LeaveDays" class="form-control" />
+                                    <span asp-validation-for="LeaveDays" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Gender" class="control-label"></label>
+                                    <input asp-for="Gender" class="form-control" />
+                                    <span asp-validation-for="Gender" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="StartDate" class="control-label"></label>
+                                    <input asp-for="StartDate" class="form-control" />
+                                    <span asp-validation-for="StartDate" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="EndDate" class="control-label"></label>
+                                    <input asp-for="EndDate" class="form-control" />
+                                    <span asp-validation-for="EndDate" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Notes" class="control-label"></label>
+                                    <input asp-for="Notes" class="form-control" />
+                                    <span asp-validation-for="Notes" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Personnel" class="control-label"></label>
+                                    <input asp-for="Personnel" class="form-control" />
+                                    <span asp-validation-for="Personnel" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="CreatedDate" class="control-label"></label>
+                                    <input asp-for="CreatedDate" class="form-control" />
+                                    <span asp-validation-for="CreatedDate" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="ModifiedDate" class="control-label"></label>
+                                    <input asp-for="ModifiedDate" class="form-control" />
+                                    <span asp-validation-for="ModifiedDate" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Create" class="btn btn-primary" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div>
+                        <a asp-action="Index">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="styleSelector">
+
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

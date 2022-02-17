@@ -1,0 +1,72 @@
+﻿@model IEnumerable<HRIS.Models.Department>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="main-body">
+    <div class="page-wrapper">
+        <div class="page-body">
+            <p>
+                <a asp-action="Create">Create New</a>
+            </p>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5>Departments</h5>
+                </div>
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Name)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.IsStudent)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Closed)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Notes)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Name)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.IsStudent)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Closed)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Notes)
+                                        </td>
+                                        <td>
+                                            <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                            <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                            <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="styleSelector">
+
+    </div>
+</div>
