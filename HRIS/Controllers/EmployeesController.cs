@@ -46,6 +46,7 @@ namespace HRIS.Controllers
         // GET: Employees/Create
         public IActionResult Create()
         {
+            ViewBag.success = true;
             return View();
         }
 
@@ -56,6 +57,27 @@ namespace HRIS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("EmployeeNo,Name,IdNo,DateOfBirth,HiredDate,Location,LeaveGroup,Gender,Department,MaritalStatus,Spouse,PIN,NSSF,NHIF,Division,Race,Religion,Disability,Country,County,City,Address,PostalCode,JobCategory,EmploymentCategory,Notes,PersonalEmail,WorkEmail,Cell,TelNo,Web,Terminated,TerminationDate,TerminationType,TerminationNotes,Supervisor,Language,Title,Personnel,CreatedDate,ModifiedDate")] Employee employee)
         {
+            if (_context.Employees.Any(d => d.EmployeeNo.ToUpper().Equals(employee.EmployeeNo.ToUpper())))
+            {
+                ViewBag.success = false;
+                TempData["message"] = "Sorry, Employee No. already exist";
+                return View(employee);
+            }
+
+            if (_context.Employees.Any(d => d.Name.ToUpper().Equals(employee.Name.ToUpper())))
+            {
+                ViewBag.success = false;
+                TempData["message"] = "Sorry, Employee Names already exist";
+                return View(employee);
+            }
+
+            if (_context.Employees.Any(d => d.IdNo.ToUpper().Equals(employee.IdNo.ToUpper())))
+            {
+                ViewBag.success = false;
+                TempData["message"] = "Sorry, Employee Id No. already exist";
+                return View(employee);
+            }
+
             if (ModelState.IsValid)
             {
                 _context.Add(employee);

@@ -46,6 +46,7 @@ namespace HRIS.Controllers
         // GET: LeaveGroups/Create
         public IActionResult Create()
         {
+            ViewBag.success = true;
             return View();
         }
 
@@ -56,6 +57,13 @@ namespace HRIS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Notes,Closed")] LeaveGroup leaveGroup)
         {
+            if (_context.LeaveGroups.Any(d => d.Name.ToUpper().Equals(leaveGroup.Name.ToUpper())))
+            {
+                ViewBag.success = false;
+                TempData["message"] = "Sorry, Leave Group already exist";
+                return View(leaveGroup);
+            }
+
             if (ModelState.IsValid)
             {
                 leaveGroup.Id = Guid.NewGuid();

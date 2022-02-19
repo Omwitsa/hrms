@@ -13,6 +13,15 @@
                 </div>
 
                 <div class="card-block">
+                    @if (!ViewBag.success)
+                    {
+                        <div class="row alert alert-warning">
+                            <div class="col-md-12 col-sm-12 text-center">
+                                <strong>@TempData["message"]</strong>
+                            </div>
+                        </div>
+                    }
+
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <form asp-action="Create">
@@ -47,15 +56,15 @@
                                     <input asp-for="Address" class="form-control" />
                                     <span asp-validation-for="Address" class="text-danger"></span>
                                 </div>
-                                <div class="form-group form-check">
-                                    <label class="form-check-label">
-                                        <input class="form-check-input" asp-for="Closed" /> @Html.DisplayNameFor(model => model.Closed)
-                                    </label>
-                                </div>
                                 <div class="form-group">
                                     <label asp-for="Notes" class="control-label"></label>
                                     <input asp-for="Notes" class="form-control" />
                                     <span asp-validation-for="Notes" class="text-danger"></span>
+                                </div>
+                                <div class="form-group form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" asp-for="Closed" /> @Html.DisplayNameFor(model => model.Closed)
+                                    </label>
                                 </div>
                                 <div class="form-group">
                                     <input type="submit" value="Create" class="btn btn-primary" />

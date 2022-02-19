@@ -46,6 +46,7 @@ namespace HRIS.Controllers
         // GET: Designations/Create
         public IActionResult Create()
         {
+            ViewBag.success = true;
             return View();
         }
 
@@ -56,6 +57,13 @@ namespace HRIS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Closed,Notes")] Designation designation)
         {
+            if (_context.Designations.Any(d => d.Name.ToUpper().Equals(designation.Name.ToUpper())))
+            {
+                ViewBag.success = false;
+                TempData["message"] = "Sorry, Designation already exist";
+                return View(designation);
+            }
+
             if (ModelState.IsValid)
             {
                 designation.Id = Guid.NewGuid();

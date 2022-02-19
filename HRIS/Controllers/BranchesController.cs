@@ -46,6 +46,7 @@ namespace HRIS.Controllers
         // GET: Branches/Create
         public IActionResult Create()
         {
+            ViewBag.success = true;
             return View();
         }
 
@@ -56,6 +57,13 @@ namespace HRIS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Notes,Closed")] Branch branch)
         {
+            if (_context.Branches.Any(d => d.Name.ToUpper().Equals(branch.Name.ToUpper())))
+            {
+                ViewBag.success = false;
+                TempData["message"] = "Sorry, Branch already exist";
+                return View(branch);
+            }
+
             if (ModelState.IsValid)
             {
                 branch.Id = Guid.NewGuid();

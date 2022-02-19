@@ -46,6 +46,7 @@ namespace HRIS.Controllers
         // GET: Races/Create
         public IActionResult Create()
         {
+            ViewBag.success = true;
             return View();
         }
 
@@ -56,6 +57,13 @@ namespace HRIS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Closed,Notes")] Race race)
         {
+            if (_context.Races.Any(d => d.Name.ToUpper().Equals(race.Name.ToUpper())))
+            {
+                ViewBag.success = false;
+                TempData["message"] = "Sorry, Race already exist";
+                return View(race);
+            }
+
             if (ModelState.IsValid)
             {
                 race.Id = Guid.NewGuid();

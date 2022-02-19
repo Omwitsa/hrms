@@ -46,6 +46,7 @@ namespace HRIS.Controllers
         // GET: LeaveEntilements/Create
         public IActionResult Create()
         {
+            ViewBag.success = true;
             return View();
         }
 
@@ -56,6 +57,16 @@ namespace HRIS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Period,EmpNo,LeaveType,Type,Days,Notes,Personnel,CreatedDate,ModifiedDate")] LeaveEntilement leaveEntilement)
         {
+            var entilementExist = _context.LeaveEntilements.Any(d => d.EmpNo.ToUpper().Equals(leaveEntilement.EmpNo.ToUpper())
+            && d.Period.ToUpper().Equals(leaveEntilement.Period.ToUpper()) 
+            && d.LeaveType.ToUpper().Equals(leaveEntilement.LeaveType.ToUpper()));
+            if (entilementExist)
+            {
+                ViewBag.success = false;
+                TempData["message"] = "Sorry, Leave Entilement already exist";
+                return View(leaveEntilement);
+            }
+
             if (ModelState.IsValid)
             {
                 leaveEntilement.Id = Guid.NewGuid();

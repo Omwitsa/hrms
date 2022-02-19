@@ -46,6 +46,7 @@ namespace HRIS.Controllers
         // GET: EmployeeDependants/Create
         public IActionResult Create()
         {
+            ViewBag.success = true;
             return View();
         }
 
@@ -56,6 +57,15 @@ namespace HRIS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,EmployeeNo,Names,RelationShip,Gender,DOB,Notes,CreatedDate,ModifiedDate,Personnel")] EmployeeDependant employeeDependant)
         {
+            var dependantExist = _context.EmployeeDependants.Any(d => d.EmployeeNo.ToUpper().Equals(employeeDependant.EmployeeNo.ToUpper())
+            && d.Names.ToUpper().Equals(employeeDependant.Names.ToUpper()));
+            if (dependantExist)
+            {
+                ViewBag.success = false;
+                TempData["message"] = "Sorry, Employee dependant already exist";
+                return View(employeeDependant);
+            }
+
             if (ModelState.IsValid)
             {
                 employeeDependant.Id = Guid.NewGuid();

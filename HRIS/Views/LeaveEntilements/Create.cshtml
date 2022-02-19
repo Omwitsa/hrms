@@ -13,6 +13,15 @@
                 </div>
 
                 <div class="card-block">
+                    @if (!ViewBag.success)
+                    {
+                        <div class="row alert alert-warning">
+                            <div class="col-md-12 col-sm-12 text-center">
+                                <strong>@TempData["message"]</strong>
+                            </div>
+                        </div>
+                    }
+
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <form asp-action="Create">
@@ -46,21 +55,6 @@
                                     <label asp-for="Notes" class="control-label"></label>
                                     <input asp-for="Notes" class="form-control" />
                                     <span asp-validation-for="Notes" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Personnel" class="control-label"></label>
-                                    <input asp-for="Personnel" class="form-control" />
-                                    <span asp-validation-for="Personnel" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="CreatedDate" class="control-label"></label>
-                                    <input asp-for="CreatedDate" class="form-control" />
-                                    <span asp-validation-for="CreatedDate" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="ModifiedDate" class="control-label"></label>
-                                    <input asp-for="ModifiedDate" class="form-control" />
-                                    <span asp-validation-for="ModifiedDate" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <input type="submit" value="Create" class="btn btn-primary" />

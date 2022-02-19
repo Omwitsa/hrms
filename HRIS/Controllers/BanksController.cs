@@ -46,6 +46,7 @@ namespace HRIS.Controllers
         // GET: Banks/Create
         public IActionResult Create()
         {
+            ViewBag.success = true;
             return View();
         }
 
@@ -56,6 +57,20 @@ namespace HRIS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Code,Name,Branch,TelNo,Email,Address,Closed,Notes")] Bank bank)
         {
+            if (_context.Banks.Any(d => d.Code.ToUpper().Equals(bank.Code.ToUpper())))
+            {
+                ViewBag.success = false;
+                TempData["message"] = "Sorry, Bank code already exist";
+                return View(bank);
+            }
+
+            if (_context.Banks.Any(d => d.Name.ToUpper().Equals(bank.Name.ToUpper())))
+            {
+                ViewBag.success = false;
+                TempData["message"] = "Sorry, Bank name already exist";
+                return View(bank);
+            }
+
             if (ModelState.IsValid)
             {
                 bank.Id = Guid.NewGuid();

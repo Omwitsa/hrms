@@ -46,6 +46,7 @@ namespace HRIS.Controllers
         // GET: EmpCategories/Create
         public IActionResult Create()
         {
+            ViewBag.success = true;
             return View();
         }
 
@@ -56,6 +57,13 @@ namespace HRIS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Closed,Notes")] EmpCategory empCategory)
         {
+            if (_context.EmpCategories.Any(d => d.Name.ToUpper().Equals(empCategory.Name.ToUpper())))
+            {
+                ViewBag.success = false;
+                TempData["message"] = "Sorry, Employment Category already exist";
+                return View(empCategory);
+            }
+
             if (ModelState.IsValid)
             {
                 empCategory.Id = Guid.NewGuid();

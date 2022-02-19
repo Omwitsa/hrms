@@ -46,6 +46,7 @@ namespace HRIS.Controllers
         // GET: WorkingDays/Create
         public IActionResult Create()
         {
+            ViewBag.success = true;
             return View();
         }
 
@@ -56,6 +57,13 @@ namespace HRIS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Type,Branch,Notes")] WorkingDay workingDay)
         {
+            //if (_context.WorkingDays.Any(d => d.Name.ToUpper().Equals(workingDay.Name.ToUpper())))
+            //{
+            //    ViewBag.success = false;
+            //    TempData["message"] = "Sorry, Working day already exist";
+            //    return View(workingDay);
+            //}
+
             if (ModelState.IsValid)
             {
                 workingDay.Id = Guid.NewGuid();

@@ -46,6 +46,7 @@ namespace HRIS.Controllers
         // GET: Holidays/Create
         public IActionResult Create()
         {
+            ViewBag.success = true;
             return View();
         }
 
@@ -56,6 +57,16 @@ namespace HRIS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Date,Period,Type,Branch,Recur,Notes,Personnel,CreatedDate,ModifiedDate")] Holiday holiday)
         {
+            holiday.Branch = holiday?.Branch ?? "";
+            var holidayExist = _context.Holidays.Any(d => d.Name.ToUpper().Equals(holiday.Name.ToUpper())
+            && d.Period.ToUpper().Equals(holiday.Period.ToUpper()) && d.Branch.ToUpper().Equals(holiday.Branch.ToUpper()));
+            if (holidayExist)
+            {
+                ViewBag.success = false;
+                TempData["message"] = "Sorry, Holiday already exist";
+                return View(holiday);
+            }
+
             if (ModelState.IsValid)
             {
                 holiday.Id = Guid.NewGuid();

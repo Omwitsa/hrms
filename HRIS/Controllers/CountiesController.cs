@@ -46,6 +46,7 @@ namespace HRIS.Controllers
         // GET: Counties/Create
         public IActionResult Create()
         {
+            ViewBag.success = true;
             return View();
         }
 
@@ -56,6 +57,13 @@ namespace HRIS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Closed,Notes")] County county)
         {
+            if (_context.Counties.Any(d => d.Name.ToUpper().Equals(county.Name.ToUpper())))
+            {
+                ViewBag.success = false;
+                TempData["message"] = "Sorry, County already exist";
+                return View(county);
+            }
+
             if (ModelState.IsValid)
             {
                 county.Id = Guid.NewGuid();

@@ -46,6 +46,7 @@ namespace HRIS.Controllers
         // GET: Countries/Create
         public IActionResult Create()
         {
+            ViewBag.success = true;
             return View();
         }
 
@@ -56,6 +57,13 @@ namespace HRIS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Closed,Notes")] Country country)
         {
+            if (_context.Countries.Any(d => d.Name.ToUpper().Equals(country.Name.ToUpper())))
+            {
+                ViewBag.success = false;
+                TempData["message"] = "Sorry, Country already exist";
+                return View(country);
+            }
+
             if (ModelState.IsValid)
             {
                 country.Id = Guid.NewGuid();

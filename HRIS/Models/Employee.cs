@@ -7,7 +7,9 @@ namespace HRIS.Models
 	{
 		[Key]
 		public string EmployeeNo { get; set; }
+		[Required]
 		public string Name { get; set; }
+		[Required]
 		public string IdNo { get; set; }
 		public DateTime? DateOfBirth { get; set; }
 		public DateTime? HiredDate { get; set; }

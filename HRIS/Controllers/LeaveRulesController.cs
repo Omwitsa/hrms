@@ -46,6 +46,7 @@ namespace HRIS.Controllers
         // GET: LeaveRules/Create
         public IActionResult Create()
         {
+            ViewBag.success = true;
             return View();
         }
 
@@ -56,6 +57,13 @@ namespace HRIS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,LeaveGroup,LeaveType,LeaveDays,Gender,StartDate,EndDate,Notes,Personnel,CreatedDate,ModifiedDate")] LeaveRule leaveRule)
         {
+            //if (_context.LeaveRules.Any(d => d.Name.ToUpper().Equals(leaveRule.Name.ToUpper())))
+            //{
+            //    ViewBag.success = false;
+            //    TempData["message"] = "Sorry, Leave Rule already exist";
+            //    return View(leaveRule);
+            //}
+
             if (ModelState.IsValid)
             {
                 leaveRule.Id = Guid.NewGuid();

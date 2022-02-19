@@ -46,6 +46,7 @@ namespace HRIS.Controllers
         // GET: Departments/Create
         public IActionResult Create()
         {
+            ViewBag.success = true;
             return View();
         }
 
@@ -56,6 +57,12 @@ namespace HRIS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Closed,Notes")] Department department)
         {
+            if(_context.Departments.Any(d => d.Name.ToUpper().Equals(department.Name.ToUpper()))){
+                ViewBag.success = false;
+                TempData["message"] = "Sorry, Department already exist";
+                return View(department);
+            }
+
             if (ModelState.IsValid)
             {
                 department.Id = Guid.NewGuid();
@@ -140,7 +147,7 @@ namespace HRIS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
-            var department = await _context.Departments.FindAsync(id);
+            var department = await _context.Departments.FirstOrDefaultAsync(d => d.Id == id);
             _context.Departments.Remove(department);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

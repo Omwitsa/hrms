@@ -46,6 +46,7 @@ namespace HRIS.Controllers
         // GET: Sections/Create
         public IActionResult Create()
         {
+            ViewBag.success = true;
             return View();
         }
 
@@ -56,6 +57,13 @@ namespace HRIS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Closed,Notes")] Section section)
         {
+            if (_context.Sections.Any(d => d.Name.ToUpper().Equals(section.Name.ToUpper())))
+            {
+                ViewBag.success = false;
+                TempData["message"] = "Sorry, Section already exist";
+                return View(section);
+            }
+
             if (ModelState.IsValid)
             {
                 section.Id = Guid.NewGuid();

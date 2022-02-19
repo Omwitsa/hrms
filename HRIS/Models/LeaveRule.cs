@@ -1,11 +1,14 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace HRIS.Models
 {
 	public class LeaveRule
 	{
 		public Guid Id { get; set; }
+		[Required]
 		public string LeaveGroup { get; set; }
+		[Required]
 		public string LeaveType { get; set; }
 		public double? LeaveDays { get; set; }
 		public string Gender { get; set; }

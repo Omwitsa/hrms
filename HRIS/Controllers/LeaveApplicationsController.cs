@@ -46,6 +46,7 @@ namespace HRIS.Controllers
         // GET: LeaveApplications/Create
         public IActionResult Create()
         {
+            ViewBag.success = true;
             return View();
         }
 
@@ -56,6 +57,13 @@ namespace HRIS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("LeaveNo,EmployeeNo,StartDate,EndDate,StartTime,EndTime,Days,Type,Period,Notes,Status,Personnel,CreatedDate,ModifiedDate")] LeaveApplication leaveApplication)
         {
+            //if (_context.LeaveApplications.Any(d => d.Status.ToUpper().Equals("PENDING")))
+            //{
+            //    ViewBag.success = false;
+            //    TempData["message"] = "Sorry, You have a pedding application";
+            //    return View(leaveApplication);
+            //}
+
             if (ModelState.IsValid)
             {
                 _context.Add(leaveApplication);

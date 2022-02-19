@@ -46,6 +46,7 @@ namespace HRIS.Controllers
         // GET: AcademicRanks/Create
         public IActionResult Create()
         {
+            ViewBag.success = true;
             return View();
         }
 
@@ -56,6 +57,13 @@ namespace HRIS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Notes,Closed")] AcademicRank academicRank)
         {
+            if (_context.Branches.Any(d => d.Name.ToUpper().Equals(academicRank.Name.ToUpper())))
+            {
+                ViewBag.success = false;
+                TempData["message"] = "Sorry, Academic rank already exist";
+                return View(academicRank);
+            }
+
             if (ModelState.IsValid)
             {
                 academicRank.Id = Guid.NewGuid();

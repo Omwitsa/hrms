@@ -46,6 +46,7 @@ namespace HRIS.Controllers
         // GET: LeavePeriods/Create
         public IActionResult Create()
         {
+            ViewBag.success = true;
             return View();
         }
 
@@ -56,6 +57,13 @@ namespace HRIS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,StartDate,EndDate,Notes")] LeavePeriod leavePeriod)
         {
+            if (_context.LeavePeriods.Any(d => d.Name.ToUpper().Equals(leavePeriod.Name.ToUpper())))
+            {
+                ViewBag.success = false;
+                TempData["message"] = "Sorry, Leave Period already exist";
+                return View(leavePeriod);
+            }
+
             if (ModelState.IsValid)
             {
                 leavePeriod.Id = Guid.NewGuid();

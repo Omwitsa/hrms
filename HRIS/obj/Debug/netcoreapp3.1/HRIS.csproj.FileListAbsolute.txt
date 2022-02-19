@@ -314,3 +314,4 @@ E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\HRIS.csproj.Copy
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\HRIS.dll
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\HRIS.pdb
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\HRIS.genruntimeconfig.cache
+E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\HRIS.csproj.AssemblyReference.cache

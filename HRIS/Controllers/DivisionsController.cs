@@ -46,6 +46,7 @@ namespace HRIS.Controllers
         // GET: Divisions/Create
         public IActionResult Create()
         {
+            ViewBag.success = true;
             return View();
         }
 
@@ -56,6 +57,13 @@ namespace HRIS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Closed,Notes")] Division division)
         {
+            if (_context.Divisions.Any(d => d.Name.ToUpper().Equals(division.Name.ToUpper())))
+            {
+                ViewBag.success = false;
+                TempData["message"] = "Sorry, Division already exist";
+                return View(division);
+            }
+
             if (ModelState.IsValid)
             {
                 division.Id = Guid.NewGuid();
