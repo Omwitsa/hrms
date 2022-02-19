@@ -8,7 +8,7 @@
     <div class="page-wrapper">
         <div class="page-body">
             <p>
-                <a asp-action="Create">Create New</a>
+                <a class="btn btn-primary" asp-action="Create">Create New</a>
             </p>
 
             <div class="card">
@@ -268,9 +268,9 @@
                                             @Html.DisplayFor(modelItem => item.ModifiedDate)
                                         </td>
                                         <td>
-                                            <a asp-action="Edit" asp-route-id="@item.EmployeeNo">Edit</a> |
-                                            <a asp-action="Details" asp-route-id="@item.EmployeeNo">Details</a> |
-                                            <a asp-action="Delete" asp-route-id="@item.EmployeeNo">Delete</a>
+                                            <a asp-action="Edit" class="btn-warning btn-sm" asp-route-id="@item.EmployeeNo">Edit</a> |
+                                            <a asp-action="Details" class="btn-info btn-sm" asp-route-id="@item.EmployeeNo">Details</a> |
+                                            <a asp-action="Delete" class="btn-danger btn-sm" asp-route-id="@item.EmployeeNo">Delete</a>
                                         </td>
                                     </tr>
                                 }
