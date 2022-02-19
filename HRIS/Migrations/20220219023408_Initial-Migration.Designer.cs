@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRIS.Migrations
 {
     [DbContext(typeof(HrDbContext))]
-    [Migration("20220218181032_Initial-Migration")]
+    [Migration("20220219023408_Initial-Migration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -214,9 +214,6 @@ namespace HRIS.Migrations
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<bool>("Closed")
-                        .HasColumnType("bit");
-
-                    b.Property<bool>("IsStudent")
                         .HasColumnType("bit");
 
                     b.Property<string>("Name")

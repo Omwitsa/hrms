@@ -54,7 +54,7 @@ namespace HRIS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,IsStudent,Closed,Notes")] Department department)
+        public async Task<IActionResult> Create([Bind("Id,Name,Closed,Notes")] Department department)
         {
             if (ModelState.IsValid)
             {
@@ -87,7 +87,7 @@ namespace HRIS.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,IsStudent,Closed,Notes")] Department department)
+        public async Task<IActionResult> Edit(Guid id, [Bind("Id,Name,Closed,Notes")] Department department)
         {
             if (id != department.Id)
             {

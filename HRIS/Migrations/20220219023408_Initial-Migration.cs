@@ -88,7 +88,6 @@ namespace HRIS.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Name = table.Column<string>(nullable: true),
-                    IsStudent = table.Column<bool>(nullable: false),
                     Closed = table.Column<bool>(nullable: false),
                     Notes = table.Column<string>(nullable: true)
                 },

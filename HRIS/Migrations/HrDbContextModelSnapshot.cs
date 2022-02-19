@@ -214,9 +214,6 @@ namespace HRIS.Migrations
                     b.Property<bool>("Closed")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsStudent")
-                        .HasColumnType("bit");
-
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
