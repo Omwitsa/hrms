@@ -10,24 +10,21 @@ using System.Diagnostics;
 
 namespace HRIS.Controllers
 {
-    //[Authorize]
+    [Authorize]
     public class HomeController : Controller
     {
         private ReaderCollection _readers;
         private DPCtlUruNet.EnrollmentControl _enrollmentControl;
 
         private readonly ILogger<HomeController> _logger;
-        private readonly UserManager<ApplicationUser> _userManager;
 
-        public HomeController(ILogger<HomeController> logger, UserManager<ApplicationUser> userManager)
+        public HomeController(ILogger<HomeController> logger)
         {
             _logger = logger;
-            _userManager = userManager;
         }
 
         public IActionResult Index()
         {
-            var username = _userManager.GetUserName(User);
             try
             {
                 _readers = ReaderCollection.GetReaders();
