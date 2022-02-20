@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HRIS.Data;
 using HRIS.Models;
+using HRIS.Constants;
 
 namespace HRIS.Controllers
 {
@@ -47,6 +48,19 @@ namespace HRIS.Controllers
         public IActionResult Create()
         {
             ViewBag.success = true;
+            ViewBag.genders = new SelectList(ArrValues.Genders);
+            var leaveGroups = _context.LeaveGroups.Where(d => !d.Closed)
+               .Select(d => new LeaveGroup
+               {
+                   Name = d.Name
+               }).ToList();
+            ViewBag.leaveGroups = new SelectList(leaveGroups, "Name", "Name");
+            var leaveTypes = _context.LeaveTypes.Where(d => !d.Closed)
+               .Select(d => new LeaveType
+               {
+                   Name = d.Name
+               }).ToList();
+            ViewBag.leaveTypes = new SelectList(leaveTypes, "Name", "Name");
             return View();
         }
 

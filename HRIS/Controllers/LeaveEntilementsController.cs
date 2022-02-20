@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HRIS.Data;
 using HRIS.Models;
+using HRIS.Constants;
 
 namespace HRIS.Controllers
 {
@@ -47,6 +48,26 @@ namespace HRIS.Controllers
         public IActionResult Create()
         {
             ViewBag.success = true;
+            ViewBag.leaveEntilementTypes = new SelectList(ArrValues.LeaveEntilementTypes);
+            var periods = _context.LeavePeriods.Where(d => d.StartDate <= DateTime.Today && d.EndDate >= DateTime.Today)
+               .Select(d => new LeavePeriod
+               {
+                   Name = d.Name
+               }).ToList();
+            ViewBag.periods = new SelectList(periods, "Name", "Name");
+            var employees = _context.Employees.Where(d => !d.Terminated)
+               .Select(d => new Employee
+               {
+                   EmployeeNo = d.EmployeeNo,
+                   Name = d.Name
+               }).ToList();
+            ViewBag.employees = new SelectList(employees, "EmployeeNo", "Name");
+            var leaveTypes = _context.LeaveTypes.Where(d => !d.Closed)
+               .Select(d => new LeaveType
+               {
+                   Name = d.Name
+               }).ToList();
+            ViewBag.leaveTypes = new SelectList(leaveTypes, "Name", "Name");
             return View();
         }
 

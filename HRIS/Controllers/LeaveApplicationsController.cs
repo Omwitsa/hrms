@@ -7,12 +7,15 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HRIS.Data;
 using HRIS.Models;
+using HRIS.Utilities;
+using HRIS.Constants;
 
 namespace HRIS.Controllers
 {
     public class LeaveApplicationsController : Controller
     {
         private readonly HrDbContext _context;
+        private Utility utility = new Utility();
 
         public LeaveApplicationsController(HrDbContext context)
         {
@@ -47,6 +50,33 @@ namespace HRIS.Controllers
         public IActionResult Create()
         {
             ViewBag.success = true;
+            ViewBag.dayTimes = new SelectList(ArrValues.DayTimes);
+            var employees = _context.Employees.Where(d => !d.Terminated)
+               .Select(d => new Employee
+               {
+                   EmployeeNo = d.EmployeeNo,
+                   Name = d.Name
+               }).ToList();
+            ViewBag.employees = new SelectList(employees, "EmployeeNo", "Name");
+
+            var leaveTypes = _context.LeaveTypes.Where(d => !d.Closed)
+               .Select(d => new LeaveType
+               {
+                   Name = d.Name
+               }).ToList();
+            ViewBag.leaveTypes = new SelectList(leaveTypes, "Name", "Name");
+
+            var prefix = "LVE";
+            var recentEntry = _context.LeaveApplications.ToList()
+                .OrderByDescending(s => Convert.ToInt32(s.LeaveNo.Substring(prefix.Length)))
+                .FirstOrDefault();
+            var no = $"{prefix}001";
+            if (recentEntry != null)
+                no = utility.GenerateNo(prefix, recentEntry.LeaveNo);
+            var leaveApplication = new LeaveApplication
+            {
+                LeaveNo = no
+            };
             return View();
         }
 

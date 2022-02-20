@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HRIS.Data;
 using HRIS.Models;
+using HRIS.Constants;
 
 namespace HRIS.Controllers
 {
@@ -46,7 +47,67 @@ namespace HRIS.Controllers
         // GET: Employees/Create
         public IActionResult Create()
         {
+            //new SelectList(ArrValues.Titles, "", "");
+            
             ViewBag.success = true;
+            ViewBag.titles = new SelectList(ArrValues.Titles);
+            ViewBag.maritalStatuses = new SelectList(ArrValues.MaritalStatuses);
+            var genders = ArrValues.Genders.Where(g => g != "All");
+            ViewBag.genders = new SelectList(genders);
+            var branches = _context.Branches.Where(b => !b.Closed)
+                .Select(b => new Branch
+                {
+                    Name = b.Name
+                }).ToList();
+            ViewBag.branches = new SelectList(branches, "Name", "Name");
+            var departments = _context.Departments.Where(d => !d.Closed)
+                .Select(d => new Department
+                {
+                    Name = d.Name
+                }).ToList();
+            ViewBag.departments = new SelectList(departments, "Name", "Name");
+            var empCategories = _context.EmpCategories.Where(c => !c.Closed)
+                .Select(c => new EmpCategory
+                {
+                    Name = c.Name
+                }).ToList();
+            ViewBag.empCategories = new SelectList(empCategories, "Name", "Name");
+            var jobCategories = _context.JobCategories.Where(c => !c.Closed)
+                .Select(c => new JobCategory
+                {
+                    Name = c.Name
+                }).ToList();
+            ViewBag.jobCategories = new SelectList(jobCategories, "Name", "Name");
+            var leaveGroups = _context.LeaveGroups.Where(g => !g.Closed)
+                .Select(g => new LeaveGroup
+                {
+                    Name = g.Name
+                }).ToList();
+            ViewBag.leaveGroups = new SelectList(leaveGroups, "Name", "Name");
+            var divisions = _context.Divisions.Where(d => !d.Closed)
+                .Select(d => new Division
+                {
+                    Name = d.Name
+                }).ToList();
+            ViewBag.divisions = new SelectList(divisions, "Name", "Name");
+            var races = _context.Races.Where(r => !r.Closed)
+                .Select(r => new Race
+                {
+                    Name = r.Name
+                }).ToList();
+            ViewBag.races = new SelectList(races, "Name", "Name");
+            var countries = _context.Countries.Where(c => !c.Closed)
+                .Select(c => new Country
+                {
+                    Name = c.Name
+                }).ToList();
+            ViewBag.countries = new SelectList(countries, "Name", "Name");
+            var counties = _context.Counties.Where(c => !c.Closed)
+                .Select(c => new County
+                {
+                    Name = c.Name
+                }).ToList();
+            ViewBag.counties = new SelectList(counties, "Name", "Name");
             return View();
         }
 

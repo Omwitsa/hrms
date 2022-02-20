@@ -1,5 +1,7 @@
 using HRIS.Data;
+using HRIS.IProviders;
 using HRIS.Models;
+using HRIS.Providers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -25,14 +27,11 @@ namespace HRIS
             services.AddDbContext<HrDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("HrDbConnection")));
 
-            //services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = true)
-            //    .AddEntityFrameworkStores<HrDbContext>();
-
             services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<HrDbContext>()
             .AddDefaultUI()
             .AddDefaultTokenProviders();
-
+            services.AddTransient<IHrProvider, HrProvider>();
             services.AddControllersWithViews();
             services.AddRazorPages();
         }
@@ -66,6 +65,15 @@ namespace HRIS
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+        }
+
+        private static void UpdateDatabase(IApplicationBuilder app)
+        {
+            using (var serviceScope = app.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            {
+                var context = serviceScope.ServiceProvider.GetRequiredService<HrDbContext>();
+                context.Database.Migrate();
+            }
         }
     }
 }

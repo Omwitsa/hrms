@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HRIS.Data;
 using HRIS.Models;
+using HRIS.Constants;
 
 namespace HRIS.Controllers
 {
@@ -47,6 +48,19 @@ namespace HRIS.Controllers
         public IActionResult Create()
         {
             ViewBag.success = true;
+            ViewBag.dayTypes = new SelectList(ArrValues.DayTypes);
+            var periods = _context.LeavePeriods.Where(d => d.StartDate <= DateTime.Today && d.EndDate >= DateTime.Today)
+               .Select(d => new LeavePeriod
+               {
+                   Name = d.Name
+               }).ToList();
+            ViewBag.periods = new SelectList(periods, "Name", "Name");
+            var branches = _context.Branches.Where(d => !d.Closed)
+               .Select(d => new Branch
+               {
+                   Name = d.Name
+               }).ToList();
+            ViewBag.branches = new SelectList(branches, "Name", "Name");
             return View();
         }
 

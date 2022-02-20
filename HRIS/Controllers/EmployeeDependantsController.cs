@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HRIS.Data;
 using HRIS.Models;
+using HRIS.Constants;
 
 namespace HRIS.Controllers
 {
@@ -47,6 +48,15 @@ namespace HRIS.Controllers
         public IActionResult Create()
         {
             ViewBag.success = true;
+            var genders = ArrValues.Genders.Where(g => g != "All");
+            ViewBag.genders = new SelectList(genders);
+            var employees = _context.Employees.Where(d => !d.Terminated)
+               .Select(d => new Employee
+               {
+                   EmployeeNo = d.EmployeeNo,
+                   Name = d.Name
+               }).ToList();
+            ViewBag.employees = new SelectList(employees, "EmployeeNo", "Name");
             return View();
         }
 

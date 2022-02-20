@@ -1,6 +1,7 @@
 ﻿using DPCtlUruNet;
 using DPUruNet;
 using HRIS.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -14,14 +15,17 @@ namespace HRIS.Controllers
         private DPCtlUruNet.EnrollmentControl _enrollmentControl;
 
         private readonly ILogger<HomeController> _logger;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, UserManager<ApplicationUser> userManager)
         {
             _logger = logger;
+            _userManager = userManager;
         }
 
         public IActionResult Index()
         {
+            var username = _userManager.GetUserName(User);
             try
             {
                 _readers = ReaderCollection.GetReaders();

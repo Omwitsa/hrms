@@ -28,17 +28,20 @@
                                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                                 <div class="form-group">
                                     <label asp-for="Name" class="control-label"></label>
-                                    <input asp-for="Name" class="form-control" />
+                                    <select asp-for="Name" asp-items="@ViewBag.weekDays" class="form-control">
+                                    </select>
                                     <span asp-validation-for="Name" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="Type" class="control-label"></label>
-                                    <input asp-for="Type" class="form-control" />
+                                    <select asp-for="Type" asp-items="@ViewBag.dayTypes" class="form-control">
+                                    </select>
                                     <span asp-validation-for="Type" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="Branch" class="control-label"></label>
-                                    <input asp-for="Branch" class="form-control" />
+                                    <select asp-for="Branch" asp-items="@ViewBag.branches" class="form-control">
+                                    </select>
                                     <span asp-validation-for="Branch" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
