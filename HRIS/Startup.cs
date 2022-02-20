@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace HRIS
 {
@@ -34,6 +35,19 @@ namespace HRIS
             services.AddTransient<IHrProvider, HrProvider>();
             services.AddControllersWithViews();
             services.AddRazorPages();
+            //services.ConfigureApplicationCookie(options =>
+            //{
+            //    // Cookie settings
+            //    options.Cookie.HttpOnly = true;
+            //    //options.Cookie.Expiration 
+
+            //    options.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+            //    options.LoginPath = "/Identity/Account/Login";
+            //    options.LogoutPath = "/Identity/Account/Logout";
+            //    options.AccessDeniedPath = "/Identity/Account/AccessDenied";
+            //    options.SlidingExpiration = true;
+            //    //options.ReturnUrlParameter=""
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

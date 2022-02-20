@@ -1,6 +1,7 @@
 ﻿using DPCtlUruNet;
 using DPUruNet;
 using HRIS.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -9,6 +10,7 @@ using System.Diagnostics;
 
 namespace HRIS.Controllers
 {
+    //[Authorize]
     public class HomeController : Controller
     {
         private ReaderCollection _readers;
