@@ -7,8 +7,8 @@ namespace HRIS.Constants
 {
     public enum Roles
     {
-        SuperAdmin,
+        Admin,
         Hr,
-        Employee
+        Staff
     }
 }

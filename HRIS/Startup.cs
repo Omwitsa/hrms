@@ -27,11 +27,11 @@ namespace HRIS
         {
             services.AddDbContext<HrDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("HrDbConnection")));
-
             services.AddIdentity<ApplicationUser, IdentityRole>()
             .AddEntityFrameworkStores<HrDbContext>()
             .AddDefaultUI()
             .AddDefaultTokenProviders();
+
             services.AddTransient<IHrProvider, HrProvider>();
             services.AddControllersWithViews();
             services.AddRazorPages();
@@ -66,6 +66,8 @@ namespace HRIS
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
             });
+
+            UpdateDatabase(app);
         }
 
         private static void UpdateDatabase(IApplicationBuilder app)
@@ -74,6 +76,7 @@ namespace HRIS
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<HrDbContext>();
                 context.Database.Migrate();
+                context.EnsureDatabaseSeeded();
             }
         }
     }

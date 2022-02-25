@@ -316,3 +316,5 @@ E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\HRIS.dll
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\HRIS.pdb
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\HRIS.genruntimeconfig.cache
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutPages.cshtml.g.cs
+E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutAdminPartial.cshtml.g.cs
+E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\Razor\Views\Shared\_LayoutStaffPartial.cshtml.g.cs
