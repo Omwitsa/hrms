@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.Extensions.Logging;
 using HRIS.Models;
+using HRIS.Data;
+using System;
 
 namespace HRIS.Areas.Identity.Pages.Account
 {
@@ -18,14 +20,17 @@ namespace HRIS.Areas.Identity.Pages.Account
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly ILogger<LoginModel> _logger;
+        private readonly HrDbContext _context;
 
         public LoginModel(SignInManager<ApplicationUser> signInManager, 
             ILogger<LoginModel> logger,
+            HrDbContext context,
             UserManager<ApplicationUser> userManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _logger = logger;
+            _context = context;
         }
 
         [BindProperty]
@@ -81,6 +86,13 @@ namespace HRIS.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User logged in.");
+                    _context.LoginLogs.Add(new LoginLogs
+                    {
+                        UserCode = Input.Email,
+                        CreatedDate = DateTime.UtcNow.AddHours(3)
+                    });
+
+                    _context.SaveChanges();
                     return LocalRedirect(returnUrl);
 
                     //return RedirectToAction("RedirectLogin");

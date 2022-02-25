@@ -1,0 +1,70 @@
+﻿@model HRIS.Models.WorkFlowRoute
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<div class="main-body">
+    <div class="page-wrapper">
+        <div class="page-body">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Edit WorkFlow Route</h5>
+                </div>
+
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12">
+                            <form asp-action="Edit">
+                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                <input type="hidden" asp-for="Id" />
+                                <div class="form-group">
+                                    <label asp-for="Document" class="control-label"></label>
+                                    <input asp-for="Document" class="form-control" />
+                                    <span asp-validation-for="Document" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Closed" class="control-label"></label>
+                                    <input asp-for="Closed" class="form-control" />
+                                    <span asp-validation-for="Closed" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Notes" class="control-label"></label>
+                                    <input asp-for="Notes" class="form-control" />
+                                    <span asp-validation-for="Notes" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="Personnel" class="control-label"></label>
+                                    <input asp-for="Personnel" class="form-control" />
+                                    <span asp-validation-for="Personnel" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="CreatedDate" class="control-label"></label>
+                                    <input asp-for="CreatedDate" class="form-control" />
+                                    <span asp-validation-for="CreatedDate" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <label asp-for="ModifiedDate" class="control-label"></label>
+                                    <input asp-for="ModifiedDate" class="form-control" />
+                                    <span asp-validation-for="ModifiedDate" class="text-danger"></span>
+                                </div>
+                                <div class="form-group">
+                                    <input type="submit" value="Save" class="btn btn-primary" />
+                                    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="styleSelector">
+
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

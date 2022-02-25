@@ -1,0 +1,96 @@
+﻿@model IEnumerable<HRIS.Models.WorkFlowDocument>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="main-body">
+    <div class="page-wrapper">
+        <div class="page-body">
+            <p>
+                <a class="btn btn-primary" asp-action="Create">Create New</a>
+            </p>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5>WorkFlow Documents</h5>
+                </div>
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.No)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Type)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Description)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.UserRef)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.LatestApprover)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.FinalStatus)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.Personnel)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.CreatedDate)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.No)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Type)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Description)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.UserRef)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.LatestApprover)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.FinalStatus)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.Personnel)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.CreatedDate)
+                                        </td>
+                                        <td>
+                                            <a asp-action="Edit" class="btn-warning btn-sm" asp-route-id="@item.Id">Edit</a> |
+                                            <a asp-action="Details" class="btn-info btn-sm" asp-route-id="@item.Id">Details</a> |
+                                            <a asp-action="Delete" class="btn-danger btn-sm" asp-route-id="@item.Id">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="styleSelector">
+
+    </div>
+</div>

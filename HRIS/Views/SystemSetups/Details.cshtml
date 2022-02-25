@@ -1,0 +1,62 @@
+﻿@model HRIS.Models.SystemSetup
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div class="main-body">
+    <div class="page-wrapper">
+        <div class="page-body">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Setup Details</h5>
+                </div>
+
+                <div class="card-block">
+                    <div>
+                        <dl class="row">
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.OrgName)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.OrgName)
+                            </dd>
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.OrgInitial)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.OrgInitial)
+                            </dd>
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.LogoUrl)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.LogoUrl)
+                            </dd>
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.PrimaryColor)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.PrimaryColor)
+                            </dd>
+                            <dt class="col-sm-2">
+                                @Html.DisplayNameFor(model => model.SecondaryColor)
+                            </dt>
+                            <dd class="col-sm-10">
+                                @Html.DisplayFor(model => model.SecondaryColor)
+                            </dd>
+                        </dl>
+                    </div>
+                    <div>
+                        <a asp-action="Edit" class="btn btn-warning" asp-route-id="@Model.Id">Edit</a> |
+                        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="styleSelector">
+
+    </div>
+</div>

@@ -761,6 +761,29 @@ namespace HRIS.Migrations
                     b.ToTable("LeaveTypes");
                 });
 
+            modelBuilder.Entity("HRIS.Models.LoginLogs", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EmpNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Names")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("LoginLogs");
+                });
+
             modelBuilder.Entity("HRIS.Models.Race", b =>
                 {
                     b.Property<Guid>("Id")
@@ -801,6 +824,200 @@ namespace HRIS.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Sections");
+                });
+
+            modelBuilder.Entity("HRIS.Models.SystemSetup", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("LogoUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrgInitial")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("OrgName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PrimaryColor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SecondaryColor")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SystemSetup");
+                });
+
+            modelBuilder.Entity("HRIS.Models.WorkFlowApprover", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool?>("Closed")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Personnel")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WorkFlowApprovers");
+                });
+
+            modelBuilder.Entity("HRIS.Models.WorkFlowApproverDetail", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("UserCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("WorkFlowApproverId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WorkFlowApproverId");
+
+                    b.ToTable("WorkFlowApproverDetails");
+                });
+
+            modelBuilder.Entity("HRIS.Models.WorkFlowDocument", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Description")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("FinalStatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LatestApprover")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("No")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Personnel")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Type")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserRef")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WorkFlowDocuments");
+                });
+
+            modelBuilder.Entity("HRIS.Models.WorkFlowDocumentDetail", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Approver")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int?>("Level")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Reason")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Status")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("UserCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("WorkFlowDocumentId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WorkFlowDocumentId");
+
+                    b.ToTable("WorkFlowDocumentDetails");
+                });
+
+            modelBuilder.Entity("HRIS.Models.WorkFlowRoute", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<bool?>("Closed")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Document")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("Notes")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Personnel")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("WorkFlowRoutes");
+                });
+
+            modelBuilder.Entity("HRIS.Models.WorkFlowRouteDetail", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("Approver")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("Level")
+                        .HasColumnType("int");
+
+                    b.Property<Guid?>("WorkFlowRouteId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("WorkFlowRouteId");
+
+                    b.ToTable("WorkFlowRouteDetails");
                 });
 
             modelBuilder.Entity("HRIS.Models.WorkingDay", b =>
@@ -956,6 +1173,27 @@ namespace HRIS.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("UserTokens");
+                });
+
+            modelBuilder.Entity("HRIS.Models.WorkFlowApproverDetail", b =>
+                {
+                    b.HasOne("HRIS.Models.WorkFlowApprover", null)
+                        .WithMany("WorkFlowApproverDetails")
+                        .HasForeignKey("WorkFlowApproverId");
+                });
+
+            modelBuilder.Entity("HRIS.Models.WorkFlowDocumentDetail", b =>
+                {
+                    b.HasOne("HRIS.Models.WorkFlowDocument", null)
+                        .WithMany("WorkFlowDocumentDetails")
+                        .HasForeignKey("WorkFlowDocumentId");
+                });
+
+            modelBuilder.Entity("HRIS.Models.WorkFlowRouteDetail", b =>
+                {
+                    b.HasOne("HRIS.Models.WorkFlowRoute", null)
+                        .WithMany("WorkFlowRouteDetails")
+                        .HasForeignKey("WorkFlowRouteId");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

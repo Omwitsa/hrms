@@ -370,6 +370,21 @@ namespace HRIS.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "LoginLogs",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    UserCode = table.Column<string>(nullable: true),
+                    Names = table.Column<string>(nullable: true),
+                    EmpNo = table.Column<string>(nullable: true),
+                    CreatedDate = table.Column<DateTime>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_LoginLogs", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Races",
                 columns: table => new
                 {
@@ -412,6 +427,22 @@ namespace HRIS.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "SystemSetup",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    OrgName = table.Column<string>(nullable: true),
+                    OrgInitial = table.Column<string>(nullable: true),
+                    LogoUrl = table.Column<string>(nullable: true),
+                    PrimaryColor = table.Column<string>(nullable: true),
+                    SecondaryColor = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SystemSetup", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "User",
                 columns: table => new
                 {
@@ -436,6 +467,59 @@ namespace HRIS.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_User", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WorkFlowApprovers",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Title = table.Column<string>(nullable: true),
+                    Closed = table.Column<bool>(nullable: true),
+                    Notes = table.Column<string>(nullable: true),
+                    Personnel = table.Column<string>(nullable: true),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    ModifiedDate = table.Column<DateTime>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkFlowApprovers", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WorkFlowDocuments",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    No = table.Column<string>(nullable: true),
+                    Type = table.Column<string>(nullable: true),
+                    Description = table.Column<string>(nullable: true),
+                    UserRef = table.Column<string>(nullable: true),
+                    LatestApprover = table.Column<string>(nullable: true),
+                    FinalStatus = table.Column<string>(nullable: true),
+                    Personnel = table.Column<string>(nullable: true),
+                    CreatedDate = table.Column<DateTime>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkFlowDocuments", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WorkFlowRoutes",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    Document = table.Column<string>(nullable: true),
+                    Closed = table.Column<bool>(nullable: true),
+                    Notes = table.Column<string>(nullable: true),
+                    Personnel = table.Column<string>(nullable: true),
+                    CreatedDate = table.Column<DateTime>(nullable: true),
+                    ModifiedDate = table.Column<DateTime>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkFlowRoutes", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -559,6 +643,69 @@ namespace HRIS.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "WorkFlowApproverDetails",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    WorkFlowApproverId = table.Column<Guid>(nullable: true),
+                    UserCode = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkFlowApproverDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WorkFlowApproverDetails_WorkFlowApprovers_WorkFlowApproverId",
+                        column: x => x.WorkFlowApproverId,
+                        principalTable: "WorkFlowApprovers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WorkFlowDocumentDetails",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    WorkFlowDocumentId = table.Column<Guid>(nullable: true),
+                    Approver = table.Column<string>(nullable: true),
+                    Level = table.Column<int>(nullable: true),
+                    UserCode = table.Column<string>(nullable: true),
+                    Status = table.Column<string>(nullable: true),
+                    Reason = table.Column<string>(nullable: true),
+                    CreatedDate = table.Column<DateTime>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkFlowDocumentDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WorkFlowDocumentDetails_WorkFlowDocuments_WorkFlowDocumentId",
+                        column: x => x.WorkFlowDocumentId,
+                        principalTable: "WorkFlowDocuments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "WorkFlowRouteDetails",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    WorkFlowRouteId = table.Column<Guid>(nullable: true),
+                    Approver = table.Column<string>(nullable: true),
+                    Level = table.Column<int>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_WorkFlowRouteDetails", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_WorkFlowRouteDetails_WorkFlowRoutes_WorkFlowRouteId",
+                        column: x => x.WorkFlowRouteId,
+                        principalTable: "WorkFlowRoutes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "RoleNameIndex",
                 table: "Role",
@@ -597,6 +744,21 @@ namespace HRIS.Migrations
                 name: "IX_UserRoles_RoleId",
                 table: "UserRoles",
                 column: "RoleId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkFlowApproverDetails_WorkFlowApproverId",
+                table: "WorkFlowApproverDetails",
+                column: "WorkFlowApproverId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkFlowDocumentDetails_WorkFlowDocumentId",
+                table: "WorkFlowDocumentDetails",
+                column: "WorkFlowDocumentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_WorkFlowRouteDetails_WorkFlowRouteId",
+                table: "WorkFlowRouteDetails",
+                column: "WorkFlowRouteId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -662,6 +824,9 @@ namespace HRIS.Migrations
                 name: "LeaveTypes");
 
             migrationBuilder.DropTable(
+                name: "LoginLogs");
+
+            migrationBuilder.DropTable(
                 name: "Races");
 
             migrationBuilder.DropTable(
@@ -669,6 +834,9 @@ namespace HRIS.Migrations
 
             migrationBuilder.DropTable(
                 name: "Sections");
+
+            migrationBuilder.DropTable(
+                name: "SystemSetup");
 
             migrationBuilder.DropTable(
                 name: "UserClaims");
@@ -683,6 +851,15 @@ namespace HRIS.Migrations
                 name: "UserTokens");
 
             migrationBuilder.DropTable(
+                name: "WorkFlowApproverDetails");
+
+            migrationBuilder.DropTable(
+                name: "WorkFlowDocumentDetails");
+
+            migrationBuilder.DropTable(
+                name: "WorkFlowRouteDetails");
+
+            migrationBuilder.DropTable(
                 name: "WorkingDays");
 
             migrationBuilder.DropTable(
@@ -690,6 +867,15 @@ namespace HRIS.Migrations
 
             migrationBuilder.DropTable(
                 name: "User");
+
+            migrationBuilder.DropTable(
+                name: "WorkFlowApprovers");
+
+            migrationBuilder.DropTable(
+                name: "WorkFlowDocuments");
+
+            migrationBuilder.DropTable(
+                name: "WorkFlowRoutes");
         }
     }
 }

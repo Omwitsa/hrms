@@ -1,0 +1,78 @@
+﻿@model IEnumerable<HRIS.Models.SystemSetup>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<div class="main-body">
+    <div class="page-wrapper">
+        <div class="page-body">
+            <p>
+                <a class="btn btn-primary" asp-action="Create">Create New</a>
+            </p>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5>Setup</h5>
+                </div>
+                <div class="card-block table-border-style">
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.OrgName)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.OrgInitial)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.LogoUrl)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.PrimaryColor)
+                                    </th>
+                                    <th>
+                                        @Html.DisplayNameFor(model => model.SecondaryColor)
+                                    </th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.OrgName)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.OrgInitial)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.LogoUrl)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.PrimaryColor)
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.SecondaryColor)
+                                        </td>
+                                        <td>
+                                            <a asp-action="Edit" class="btn-warning btn-sm" asp-route-id="@item.Id">Edit</a> |
+                                            <a asp-action="Details" class="btn-info btn-sm" asp-route-id="@item.Id">Details</a> |
+                                            <a asp-action="Delete" class="btn-danger btn-sm" asp-route-id="@item.Id">Delete</a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="styleSelector">
+
+    </div>
+</div>

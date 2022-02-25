@@ -73,5 +73,13 @@ namespace HRIS.Data
         public virtual DbSet<Race> Races { get; set; }
         public virtual DbSet<Section> Sections { get; set; }
         public virtual DbSet<WorkingDay> WorkingDays { get; set; }
+        public virtual DbSet<SystemSetup> SystemSetup { get; set; }
+        public virtual DbSet<LoginLogs> LoginLogs { get; set; }
+        public virtual DbSet<WorkFlowApprover> WorkFlowApprovers { get; set; }
+        public virtual DbSet<WorkFlowApproverDetail> WorkFlowApproverDetails { get; set; }
+        public virtual DbSet<WorkFlowDocument> WorkFlowDocuments { get; set; }
+        public virtual DbSet<WorkFlowDocumentDetail> WorkFlowDocumentDetails { get; set; }
+        public virtual DbSet<WorkFlowRoute> WorkFlowRoutes { get; set; }
+        public virtual DbSet<WorkFlowRouteDetail> WorkFlowRouteDetails { get; set; }
     }
 }
