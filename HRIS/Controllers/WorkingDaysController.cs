@@ -66,12 +66,14 @@ namespace HRIS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Type,Branch,Notes")] WorkingDay workingDay)
         {
-            //if (_context.WorkingDays.Any(d => d.Name.ToUpper().Equals(workingDay.Name.ToUpper())))
-            //{
-            //    ViewBag.success = false;
-            //    TempData["message"] = "Sorry, Working day already exist";
-            //    return View(workingDay);
-            //}
+            var dayExist = _context.WorkingDays.Any(d => d.Name.ToUpper().Equals(workingDay.Name.ToUpper())
+            && d.Branch.ToUpper().Equals(workingDay.Branch.ToUpper()));
+            if (dayExist)
+            {
+                ViewBag.success = false;
+                TempData["message"] = "Sorry, Working day already exist";
+                return View(workingDay);
+            }
 
             if (ModelState.IsValid)
             {

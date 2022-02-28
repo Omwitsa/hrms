@@ -33,47 +33,50 @@
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="EmployeeNo" class="control-label"></label>
-                                    <select asp-for="EmployeeNo" asp-items="@ViewBag.employees" class="form-control">
+                                    <select asp-for="EmployeeNo" id="employeeNo" asp-items="@ViewBag.employees" class="form-control">
                                     </select>
                                     <span asp-validation-for="EmployeeNo" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="Type" class="control-label"></label>
-                                    <select asp-for="Type" asp-items="@ViewBag.leaveTypes" class="form-control">
+                                    <select asp-for="Type" id="leaveTypes" asp-items="@ViewBag.leaveTypes" class="form-control">
                                     </select>
                                     <span asp-validation-for="Type" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="StartDate" class="control-label"></label>
-                                    <input asp-for="StartDate" class="form-control" type="date" />
+                                    <input asp-for="StartDate" id="startDate" class="form-control" type="date" />
                                     <span asp-validation-for="StartDate" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="EndDate" class="control-label"></label>
-                                    <input asp-for="EndDate" class="form-control" type="date" />
+                                    <input asp-for="EndDate" id="endDate" class="form-control" type="date" />
                                     <span asp-validation-for="EndDate" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="StartTime" class="control-label"></label>
-                                    <select asp-for="StartTime" asp-items="@ViewBag.dayTimes" class="form-control">
+                                    <select asp-for="StartTime" id="startTime" asp-items="@ViewBag.dayTimes" class="form-control">
                                     </select>
                                     <span asp-validation-for="StartTime" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="EndTime" class="control-label"></label>
-                                    <select asp-for="EndTime" asp-items="@ViewBag.dayTimes" class="form-control">
+                                    <select asp-for="EndTime" id="endTime" asp-items="@ViewBag.dayTimes" class="form-control">
                                     </select>
                                     <span asp-validation-for="EndTime" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="Days" class="control-label"></label>
-                                    <input asp-for="Days" class="form-control" readonly/>
+                                    <input asp-for="Days" id="days" class="form-control" readonly />
                                     <span asp-validation-for="Days" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
-                                    <label asp-for="Period" class="control-label"></label>
-                                    <input asp-for="Period" class="form-control" readonly/>
-                                    <span asp-validation-for="Period" class="text-danger"></span>
+                                    <label for="entitledDays" class="control-label">Entitled Days</label>
+                                    <input id="entitledDays" class="form-control" readonly />
+                                </div>
+                                <div class="form-group">
+                                    <label for="remainingDays" class="control-label">Remaining Days</label>
+                                    <input id="remainingDays" class="form-control" readonly />
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="Notes" class="control-label"></label>
@@ -82,7 +85,7 @@
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="Status" class="control-label"></label>
-                                    <input asp-for="Status" class="form-control" readonly/>
+                                    <input asp-for="Status" class="form-control" readonly />
                                     <span asp-validation-for="Status" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
@@ -104,4 +107,93 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script type="text/javascript">
+        $(function () {
+            $('#leaveTypes').on('change', function () {
+                let data = {
+                    employeeNo: $("#employeeNo").val(),
+                    leaveType: $("#leaveTypes").val(),
+                };
+
+                @*if (!data.employeeNo) {
+                    @ViewBag.success = false;
+                    @TempData["message"] = "Kindly provide employee";
+                    return;
+                }*@
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'onleaveTypeChange',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    success: function (response) {
+                        if (response.Success) {
+                            $("#entitledDays").val(response.Data.entitledDays);
+                            $("#remainingDays").val(response.Data.appliedDays);
+                            calculateLeaveDays();
+                        }
+                    },
+                    failure: function (response) {
+                    }
+                }).then(function () {
+                    // ...
+                });
+            });
+
+            $('#startDate').on('change', function () {
+                calculateLeaveDays();
+            });
+
+            $('#endDate').on('change', function () {
+                calculateLeaveDays();
+            });
+
+            $('#startTime').on('change', function () {
+                calculateLeaveDays();
+            });
+
+            $('#endTime').on('change', function () {
+                calculateLeaveDays();
+            });
+
+            function calculateLeaveDays() {
+                let data = {
+                    startDate: $("#startDate").val(),
+                    endDate: $("#endDate").val(),
+                    startTime: $("#startTime").val(),
+                    endTime: $("#endTime").val(),
+                    type: $("#leaveTypes").val(),
+                };
+
+                if (!data.startDate || !data.endDate || !data.startTime || !data.endTime || !data.type) {
+                    return
+                }
+
+                if (data.startDate > data.endDate) {
+                    $("#startDate").val(null);
+                    $("#endDate").val(null);
+                    $("#days").val(0);
+                    //this.toastr.error("Sorry, End date must be greater than start date");
+                    return
+                }
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'CalculateLeaveDays',
+                    contentType: 'application/json',
+                    data: JSON.stringify(data),
+                    success: function (response) {
+                        if (response.Success) {
+                            $("#days").val(response.Data.application.Days);
+                        }
+                    },
+                    failure: function (response) {
+                    }
+                }).then(function () {
+                    // ...
+                });
+            }
+        });
+</script>
 }

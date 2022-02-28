@@ -1,7 +1,12 @@
-﻿namespace HRIS.IProviders
+﻿using HRIS.Models;
+using HRIS.ViewModel;
+
+namespace HRIS.IProviders
 {
     public interface IHrProvider
     {
-        //ReturnData<dynamic> GetEmployees(Employee employee);
+        ReturnData<string> SaveWorkFlowDocument(WfDocVm wfDoc);
+        ReturnData<dynamic> GetEntitledLeave(EntiledLeaveVm entiledLeave);
+        ReturnData<dynamic> CalculateLeaveDays(LeaveApplication application);
     }
 }

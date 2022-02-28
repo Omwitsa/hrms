@@ -9,17 +9,21 @@ using HRIS.Data;
 using HRIS.Models;
 using HRIS.Utilities;
 using HRIS.Constants;
+using HRIS.IProviders;
+using HRIS.ViewModel;
 
 namespace HRIS.Controllers
 {
     public class LeaveApplicationsController : Controller
     {
+        private IHrProvider _hrProvider;
         private readonly HrDbContext _context;
         private Utility utility = new Utility();
 
-        public LeaveApplicationsController(HrDbContext context)
+        public LeaveApplicationsController(HrDbContext context, IHrProvider hrProvider)
         {
             _context = context;
+            _hrProvider = hrProvider;
         }
 
         // GET: LeaveApplications
@@ -77,7 +81,7 @@ namespace HRIS.Controllers
             {
                 LeaveNo = no
             };
-            return View();
+            return View(leaveApplication);
         }
 
         // POST: LeaveApplications/Create
@@ -87,12 +91,52 @@ namespace HRIS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("LeaveNo,EmployeeNo,StartDate,EndDate,StartTime,EndTime,Days,Type,Period,Notes,Status,Personnel,CreatedDate,ModifiedDate")] LeaveApplication leaveApplication)
         {
-            //if (_context.LeaveApplications.Any(d => d.Status.ToUpper().Equals("PENDING")))
-            //{
-            //    ViewBag.success = false;
-            //    TempData["message"] = "Sorry, You have a pedding application";
-            //    return View(leaveApplication);
-            //}
+            if (string.IsNullOrEmpty(leaveApplication.EmployeeNo))
+            {
+                ViewBag.success = false;
+                TempData["message"] = "Sorry, Kindly provide employee";
+                return View(leaveApplication);
+            }
+
+            if (leaveApplication.StartDate == null)
+            {
+                ViewBag.success = false;
+                TempData["message"] = "Sorry, Kindly provide start date";
+                return View(leaveApplication);
+            }
+
+            if (leaveApplication.EndDate == null)
+            {
+                ViewBag.success = false;
+                TempData["message"] = "Sorry, Kindly provide end date";
+                return View(leaveApplication);
+            }
+
+            if (leaveApplication.StartDate > leaveApplication.EndDate)
+            {
+                ViewBag.success = false;
+                TempData["message"] = "Sorry, End date must be greater than start date";
+                return View(leaveApplication);
+            }
+
+            var doc = "Leave Application";
+            var wfDoc = new WfDocVm
+            {
+                DocNo = leaveApplication.LeaveNo,
+                Document = doc,
+                Description = $"Leave Type: {leaveApplication.Type}, Days: {leaveApplication.Days}, From: {leaveApplication.StartDate} to: {leaveApplication.EndDate}",
+                UserRef = leaveApplication.EmployeeNo,
+                Personnel = leaveApplication.Personnel,
+                CreatedDate = leaveApplication.CreatedDate
+            };
+
+            var docResp = _hrProvider.SaveWorkFlowDocument(wfDoc);
+            if (!docResp.Success)
+            {
+                ViewBag.success = false;
+                TempData["message"] = docResp.Message;
+                return View(leaveApplication);
+            }
 
             if (ModelState.IsValid)
             {
@@ -101,6 +145,20 @@ namespace HRIS.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(leaveApplication);
+        }
+
+        [HttpPost]
+        public JsonResult OnleaveTypeChange([FromBody] EntiledLeaveVm entiledLeave)
+        {
+            var results = _hrProvider.GetEntitledLeave(entiledLeave);
+            return Json(results);
+        }
+
+        [HttpPost]
+        public JsonResult CalculateLeaveDays([FromBody] LeaveApplication application)
+        {
+            var results = _hrProvider.CalculateLeaveDays(application);
+            return Json(results);
         }
 
         // GET: LeaveApplications/Edit/5
