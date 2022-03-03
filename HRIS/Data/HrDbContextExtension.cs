@@ -46,7 +46,7 @@ namespace HRIS.Data
                 user.PasswordHash = hashed;
                 var userManager = new UserStore<ApplicationUser>(context);
                 var result = userManager.CreateAsync(user);
-                userManager.AddToRoleAsync(user, "Admin");
+                userManager.AddToRoleAsync(user, Roles.Admin.ToString());
             }
 
             context.SaveChanges();

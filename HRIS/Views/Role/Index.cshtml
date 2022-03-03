@@ -3,13 +3,24 @@
     ViewData["Title"] = "Index";
 }
 
-<h1>List of Roles</h1>
-<a asp-action="Create">Create</a>
+@*<h1>List of Roles</h1>
+<a asp-action="Create">Create</a>*@
+
+<h1>Role Manager</h1>
+<form method="post" asp-action="AddRole" asp-controller="Role">
+    <div class="input-group">
+        <input name="roleName" class="form-control w-25">
+        <span class="input-group-btn">
+            <button class="btn btn-info">Add New Role</button>
+        </span>
+    </div>
+</form>
+
 <table class="table table-striped table-bordered">
     <thead>
         <tr>
-            <td>Id</td>
-            <td>Name</td>
+            <th>Id</th>
+            <th>Role</th>
         </tr>
     </thead>
     <tbody>

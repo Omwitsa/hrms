@@ -119,6 +119,13 @@ namespace HRIS.Controllers
                 return View(leaveApplication);
             }
 
+            if(leaveApplication.Days <= 0)
+            {
+                ViewBag.success = false;
+                TempData["message"] = "Sorry, Leave days must be greater than 0";
+                return View(leaveApplication);
+            }
+
             var doc = "Leave Application";
             var wfDoc = new WfDocVm
             {

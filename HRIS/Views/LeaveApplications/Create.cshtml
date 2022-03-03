@@ -110,6 +110,7 @@
 
 <script type="text/javascript">
         $(function () {
+            $("#leaveTypes").val("");
             $('#leaveTypes').on('change', function () {
                 let data = {
                     employeeNo: $("#employeeNo").val(),
@@ -185,7 +186,8 @@
                     data: JSON.stringify(data),
                     success: function (response) {
                         if (response.Success) {
-                            $("#days").val(response.Data.application.Days);
+                            let days = parseInt(response.Data.application.Days);
+                            verifyAppliedDays(days);
                         }
                     },
                     failure: function (response) {
@@ -193,6 +195,15 @@
                 }).then(function () {
                     // ...
                 });
+            }
+
+            function verifyAppliedDays(days) {
+                $("#days").val(days);
+                let entitledDays = parseInt($("#entitledDays").val());
+                let remainingDays = parseInt($("#remainingDays").val());
+                if (remainingDays > days) {
+                    $("#days").val(0);
+                }
             }
         });
 </script>

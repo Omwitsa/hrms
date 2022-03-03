@@ -9,32 +9,26 @@ namespace HRIS.Controllers
 {
     public class RoleController : Controller
     {
-        RoleManager<IdentityRole> roleManager;
+        RoleManager<IdentityRole> _roleManager;
 
-        /// 
-        /// Injecting Role Manager
-        /// 
-        /// 
         public RoleController(RoleManager<IdentityRole> roleManager)
         {
-            this.roleManager = roleManager;
+            _roleManager = roleManager;
         }
 
         public IActionResult Index()
         {
-            var roles = roleManager.Roles.ToList();
+            var roles = _roleManager.Roles.ToList();
             return View(roles);
         }
 
-        public IActionResult Create()
-        {
-            return View(new IdentityRole());
-        }
-
         [HttpPost]
-        public async Task<IActionResult> Create(IdentityRole role)
+        public async Task<IActionResult> AddRole(string roleName)
         {
-            await roleManager.CreateAsync(role);
+            if (roleName != null)
+            {
+                await _roleManager.CreateAsync(new IdentityRole(roleName.Trim()));
+            }
             return RedirectToAction("Index");
         }
     }
