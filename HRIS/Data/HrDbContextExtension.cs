@@ -17,6 +17,13 @@ namespace HRIS.Data
                 {
                     RetirementAge = 65
                 });
+            } 
+            if (!context.Branches.Any())
+            {
+                context.Branches.Add(new Branch
+                {
+                    Name = "All"
+                });
             }
             if (!context.Roles.Any())
             {

@@ -8,6 +8,8 @@ E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\HRIS.dll
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\HRIS.pdb
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\HRIS.Views.dll
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\HRIS.Views.pdb
+E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\AspNetCoreHero.ToastNotification.Views.dll
+E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\AspNetCoreHero.ToastNotification.dll
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.Internal.dll
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Cryptography.KeyDerivation.dll
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore.dll
@@ -15,6 +17,8 @@ E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\Microsoft.AspNet
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.UI.Views.V3.dll
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.UI.Views.V4.dll
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Identity.UI.dll
+E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
+E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Razor.Language.dll
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\Microsoft.Bcl.AsyncInterfaces.dll
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\Microsoft.Bcl.HashCode.dll
@@ -59,6 +63,7 @@ E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\Microsoft.Visual
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGeneration.Utils.dll
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGenerators.Mvc.dll
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\Newtonsoft.Json.dll
+E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\NuGet.Frameworks.dll
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\System.Collections.Immutable.dll
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\System.Composition.AttributedModel.dll
@@ -338,6 +343,3 @@ E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\HRIS.csproj.Copy
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\HRIS.dll
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\HRIS.pdb
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\HRIS.genruntimeconfig.cache
-E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
-E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.Mvc.NewtonsoftJson.dll
-E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\Newtonsoft.Json.Bson.dll

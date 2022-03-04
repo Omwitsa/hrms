@@ -11,19 +11,22 @@ using HRIS.Utilities;
 using HRIS.Constants;
 using HRIS.IProviders;
 using HRIS.ViewModel;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace HRIS.Controllers
 {
     public class LeaveApplicationsController : Controller
     {
+        private readonly INotyfService _notyf;
         private IHrProvider _hrProvider;
         private readonly HrDbContext _context;
         private Utility utility = new Utility();
 
-        public LeaveApplicationsController(HrDbContext context, IHrProvider hrProvider)
+        public LeaveApplicationsController(HrDbContext context, IHrProvider hrProvider, INotyfService notyf)
         {
             _context = context;
             _hrProvider = hrProvider;
+            _notyf = notyf;
         }
 
         // GET: LeaveApplications
@@ -91,38 +94,50 @@ namespace HRIS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("LeaveNo,EmployeeNo,StartDate,EndDate,StartTime,EndTime,Days,Type,Period,Notes,Status,Personnel,CreatedDate,ModifiedDate")] LeaveApplication leaveApplication)
         {
+            leaveApplication.Status = "Pending";
+            string message = "";
             if (string.IsNullOrEmpty(leaveApplication.EmployeeNo))
             {
                 ViewBag.success = false;
-                TempData["message"] = "Sorry, Kindly provide employee";
+                message = "Sorry, Kindly provide employee";
+                TempData["message"] = message;
+                _notyf.Error(message);
                 return View(leaveApplication);
             }
 
             if (leaveApplication.StartDate == null)
             {
                 ViewBag.success = false;
-                TempData["message"] = "Sorry, Kindly provide start date";
+                message = "Sorry, Kindly provide start date";
+                TempData["message"] = message;
+                _notyf.Error(message);
                 return View(leaveApplication);
             }
 
             if (leaveApplication.EndDate == null)
             {
                 ViewBag.success = false;
-                TempData["message"] = "Sorry, Kindly provide end date";
+                message = "Sorry, Kindly provide end date";
+                TempData["message"] = message;
+                _notyf.Error(message);
                 return View(leaveApplication);
             }
 
             if (leaveApplication.StartDate > leaveApplication.EndDate)
             {
                 ViewBag.success = false;
-                TempData["message"] = "Sorry, End date must be greater than start date";
+                message = "Sorry, End date must be greater than start date";
+                TempData["message"] = message;
+                _notyf.Error(message);
                 return View(leaveApplication);
             }
 
             if(leaveApplication.Days <= 0)
             {
                 ViewBag.success = false;
-                TempData["message"] = "Sorry, Leave days must be greater than 0";
+                message = "Sorry, Leave days must be greater than 0";
+                TempData["message"] = message;
+                _notyf.Error(message);
                 return View(leaveApplication);
             }
 
@@ -142,6 +157,7 @@ namespace HRIS.Controllers
             {
                 ViewBag.success = false;
                 TempData["message"] = docResp.Message;
+                _notyf.Error(docResp.Message);
                 return View(leaveApplication);
             }
 
@@ -149,6 +165,7 @@ namespace HRIS.Controllers
             {
                 _context.Add(leaveApplication);
                 await _context.SaveChangesAsync();
+                _notyf.Success("Leave saved successfully");
                 return RedirectToAction(nameof(Index));
             }
             return View(leaveApplication);

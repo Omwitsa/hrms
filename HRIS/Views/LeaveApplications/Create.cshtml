@@ -25,69 +25,77 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <form asp-action="Create">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <div class="form-group">
-                                    <label asp-for="LeaveNo" class="control-label"></label>
-                                    <input asp-for="LeaveNo" class="form-control" readonly />
-                                    <span asp-validation-for="LeaveNo" class="text-danger"></span>
+                                <div class="row">
+                                    <div class="col-md-6 col-sm-12">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <div class="form-group">
+                                            <label asp-for="LeaveNo" class="control-label"></label>
+                                            <input asp-for="LeaveNo" class="form-control" readonly />
+                                            <span asp-validation-for="LeaveNo" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="Type" class="control-label"></label>
+                                            <select asp-for="Type" id="leaveTypes" asp-items="@ViewBag.leaveTypes" class="form-control">
+                                            </select>
+                                            <span asp-validation-for="Type" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="StartDate" class="control-label"></label>
+                                            <input asp-for="StartDate" id="startDate" class="form-control" type="date" />
+                                            <span asp-validation-for="StartDate" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="StartTime" class="control-label"></label>
+                                            <select asp-for="StartTime" id="startTime" asp-items="@ViewBag.dayTimes" class="form-control">
+                                            </select>
+                                            <span asp-validation-for="StartTime" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="Days" class="control-label"></label>
+                                            <input asp-for="Days" id="days" class="form-control" readonly />
+                                            <span asp-validation-for="Days" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="Notes" class="control-label"></label>
+                                            <input asp-for="Notes" class="form-control" />
+                                            <span asp-validation-for="Notes" class="text-danger"></span>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-md-6 col-sm-12">
+                                        <div class="form-group">
+                                            <label asp-for="EmployeeNo" class="control-label"></label>
+                                            <select asp-for="EmployeeNo" id="employeeNo" asp-items="@ViewBag.employees" class="form-control">
+                                            </select>
+                                            <span asp-validation-for="EmployeeNo" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="entitledDays" class="control-label">Entitled Days</label>
+                                            <input id="entitledDays" class="form-control" readonly />
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="EndDate" class="control-label"></label>
+                                            <input asp-for="EndDate" id="endDate" class="form-control" type="date" />
+                                            <span asp-validation-for="EndDate" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="EndTime" class="control-label"></label>
+                                            <select asp-for="EndTime" id="endTime" asp-items="@ViewBag.dayTimes" class="form-control">
+                                            </select>
+                                            <span asp-validation-for="EndTime" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label for="remainingDays" class="control-label">Remaining Days</label>
+                                            <input id="remainingDays" class="form-control" readonly />
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="Status" class="control-label"></label>
+                                            <input asp-for="Status" class="form-control" readonly />
+                                            <span asp-validation-for="Status" class="text-danger"></span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label asp-for="EmployeeNo" class="control-label"></label>
-                                    <select asp-for="EmployeeNo" id="employeeNo" asp-items="@ViewBag.employees" class="form-control">
-                                    </select>
-                                    <span asp-validation-for="EmployeeNo" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Type" class="control-label"></label>
-                                    <select asp-for="Type" id="leaveTypes" asp-items="@ViewBag.leaveTypes" class="form-control">
-                                    </select>
-                                    <span asp-validation-for="Type" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="StartDate" class="control-label"></label>
-                                    <input asp-for="StartDate" id="startDate" class="form-control" type="date" />
-                                    <span asp-validation-for="StartDate" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="EndDate" class="control-label"></label>
-                                    <input asp-for="EndDate" id="endDate" class="form-control" type="date" />
-                                    <span asp-validation-for="EndDate" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="StartTime" class="control-label"></label>
-                                    <select asp-for="StartTime" id="startTime" asp-items="@ViewBag.dayTimes" class="form-control">
-                                    </select>
-                                    <span asp-validation-for="StartTime" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="EndTime" class="control-label"></label>
-                                    <select asp-for="EndTime" id="endTime" asp-items="@ViewBag.dayTimes" class="form-control">
-                                    </select>
-                                    <span asp-validation-for="EndTime" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Days" class="control-label"></label>
-                                    <input asp-for="Days" id="days" class="form-control" readonly />
-                                    <span asp-validation-for="Days" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label for="entitledDays" class="control-label">Entitled Days</label>
-                                    <input id="entitledDays" class="form-control" readonly />
-                                </div>
-                                <div class="form-group">
-                                    <label for="remainingDays" class="control-label">Remaining Days</label>
-                                    <input id="remainingDays" class="form-control" readonly />
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Notes" class="control-label"></label>
-                                    <input asp-for="Notes" class="form-control" />
-                                    <span asp-validation-for="Notes" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Status" class="control-label"></label>
-                                    <input asp-for="Status" class="form-control" readonly />
-                                    <span asp-validation-for="Status" class="text-danger"></span>
-                                </div>
+
                                 <div class="form-group">
                                     <input type="submit" value="Create" class="btn btn-primary" />
                                     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
@@ -131,7 +139,7 @@
                     success: function (response) {
                         if (response.Success) {
                             $("#entitledDays").val(response.Data.entitledDays);
-                            $("#remainingDays").val(response.Data.appliedDays);
+                            $("#remainingDays").val(response.Data.remainingDays);
                             calculateLeaveDays();
                         }
                     },
@@ -201,7 +209,7 @@
                 $("#days").val(days);
                 let entitledDays = parseInt($("#entitledDays").val());
                 let remainingDays = parseInt($("#remainingDays").val());
-                if (remainingDays > days) {
+                if (days > remainingDays) {
                     $("#days").val(0);
                 }
             }

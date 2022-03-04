@@ -858,7 +858,7 @@ namespace HRIS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool?>("Closed")
+                    b.Property<bool>("Closed")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("CreatedDate")
@@ -975,7 +975,7 @@ namespace HRIS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool?>("Closed")
+                    b.Property<bool>("Closed")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("CreatedDate")

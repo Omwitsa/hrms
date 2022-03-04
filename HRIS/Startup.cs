@@ -1,3 +1,5 @@
+using AspNetCoreHero.ToastNotification;
+using AspNetCoreHero.ToastNotification.Extensions;
 using HRIS.Data;
 using HRIS.IProviders;
 using HRIS.Models;
@@ -34,6 +36,7 @@ namespace HRIS
             .AddDefaultTokenProviders();
 
             services.AddTransient<IHrProvider, HrProvider>();
+            services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.TopCenter; });
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddControllers().AddNewtonsoftJson(options =>
@@ -65,6 +68,7 @@ namespace HRIS
             app.UseAuthentication();
             app.UseAuthorization();
 
+            app.UseNotyf();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(

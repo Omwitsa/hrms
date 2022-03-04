@@ -8,16 +8,19 @@ using Microsoft.EntityFrameworkCore;
 using HRIS.Data;
 using HRIS.Models;
 using HRIS.Constants;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace HRIS.Controllers
 {
     public class EmployeesController : Controller
     {
         private readonly HrDbContext _context;
+        private readonly INotyfService _notyf;
 
-        public EmployeesController(HrDbContext context)
+        public EmployeesController(HrDbContext context, INotyfService notyf)
         {
             _context = context;
+            _notyf = notyf;
         }
 
         // GET: Employees
@@ -48,7 +51,12 @@ namespace HRIS.Controllers
         public IActionResult Create()
         {
             //new SelectList(ArrValues.Titles, "", "");
-            
+            SetInitialValues();
+            return View();
+        }
+
+        private void SetInitialValues()
+        {
             ViewBag.success = true;
             ViewBag.titles = new SelectList(ArrValues.Titles);
             ViewBag.maritalStatuses = new SelectList(ArrValues.MaritalStatuses);
@@ -108,7 +116,6 @@ namespace HRIS.Controllers
                     Name = c.Name
                 }).ToList();
             ViewBag.counties = new SelectList(counties, "Name", "Name");
-            return View();
         }
 
         // POST: Employees/Create
@@ -118,31 +125,67 @@ namespace HRIS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("EmployeeNo,Name,IdNo,DateOfBirth,HiredDate,Location,LeaveGroup,Gender,Department,MaritalStatus,Spouse,PIN,NSSF,NHIF,Division,Race,Religion,Disability,Country,County,City,Address,PostalCode,JobCategory,EmploymentCategory,Notes,PersonalEmail,WorkEmail,Cell,TelNo,Web,Terminated,TerminationDate,TerminationType,TerminationNotes,Supervisor,Language,Title,Personnel,CreatedDate,ModifiedDate")] Employee employee)
         {
+            SetInitialValues();
+            string message = "";
+            if (string.IsNullOrEmpty(employee.EmployeeNo))
+            {
+                ViewBag.success = false;
+                message = "Sorry, Kindly provide employee No.";
+                TempData["message"] = message;
+                _notyf.Error(message);
+                View(employee);
+            }
+
+            if (string.IsNullOrEmpty(employee.Name))
+            {
+                ViewBag.success = false;
+                message = "Sorry, Kindly provide employee Names";
+                TempData["message"] = message;
+                _notyf.Error(message);
+                View(employee);
+            }
+
+            if (string.IsNullOrEmpty(employee.IdNo))
+            {
+                ViewBag.success = false;
+                message = "Sorry, Kindly provide Id No.";
+                TempData["message"] = message;
+                _notyf.Error(message);
+                View(employee);
+            }
+
             if (_context.Employees.Any(d => d.EmployeeNo.ToUpper().Equals(employee.EmployeeNo.ToUpper())))
             {
                 ViewBag.success = false;
-                TempData["message"] = "Sorry, Employee No. already exist";
-                return View(employee);
+                message = "Sorry, Employee No. already exist";
+                TempData["message"] = message;
+                _notyf.Error(message);
+                View(employee);
             }
 
             if (_context.Employees.Any(d => d.Name.ToUpper().Equals(employee.Name.ToUpper())))
             {
                 ViewBag.success = false;
-                TempData["message"] = "Sorry, Employee Names already exist";
-                return View(employee);
+                message = "Sorry, Employee Names already exist";
+                TempData["message"] = message;
+                _notyf.Error(message);
+                View(employee);
             }
 
             if (_context.Employees.Any(d => d.IdNo.ToUpper().Equals(employee.IdNo.ToUpper())))
             {
                 ViewBag.success = false;
-                TempData["message"] = "Sorry, Employee Id No. already exist";
-                return View(employee);
+                message = "Sorry, Employee Id No. already exist";
+                TempData["message"] = message;
+                _notyf.Error(message);
+                View(employee);
             }
 
             if (ModelState.IsValid)
             {
                 _context.Add(employee);
                 await _context.SaveChangesAsync();
+                _notyf.Success("Employee saved successfuly");
                 return RedirectToAction(nameof(Index));
             }
             return View(employee);
@@ -156,6 +199,7 @@ namespace HRIS.Controllers
                 return NotFound();
             }
 
+            SetInitialValues();
             var employee = await _context.Employees.FindAsync(id);
             if (employee == null)
             {
@@ -176,6 +220,7 @@ namespace HRIS.Controllers
                 return NotFound();
             }
 
+            SetInitialValues();
             if (ModelState.IsValid)
             {
                 try

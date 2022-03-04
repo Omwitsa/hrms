@@ -25,39 +25,78 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <form asp-action="Create">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <div class="form-group">
-                                    <label asp-for="Document" class="control-label"></label>
-                                    <input asp-for="Document" class="form-control" />
-                                    <span asp-validation-for="Document" class="text-danger"></span>
+                                <ul class="nav nav-tabs md-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#details" role="tab">Details</a>
+                                        <div class="slide"></div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#approvers" role="tab">Approvers</a>
+                                        <div class="slide"></div>
+                                    </li>
+                                </ul>
+
+                                <div class="tab-content card-block">
+                                    <div class="tab-pane active" id="details" role="tabpanel">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <div class="form-group">
+                                            <label asp-for="Document" class="control-label"></label>
+                                            <select asp-for="Document" id="workflowDocs" asp-items="@ViewBag.workflowDocs" class="form-control">
+                                            </select>
+                                            <span asp-validation-for="Document" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="Notes" class="control-label"></label>
+                                            <input asp-for="Notes" id="notes" class="form-control" />
+                                            <span asp-validation-for="Notes" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" id="closed" asp-for="Closed" /> @Html.DisplayNameFor(model => model.Closed)
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane" id="approvers" role="tabpanel">
+                                        <div class="form-group">
+                                            <label for="approver" class="control-label">Approver</label>
+                                            <select id="approver" asp-items="@ViewBag.approvers" class="form-control">
+                                            </select>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <label for="level" class="control-label"></label>
+                                            <input id="level" class="form-control" />
+                                        </div>
+
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Approver
+                                                        </th>
+                                                        <th>
+                                                            Level
+                                                        </th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="items">
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <a class="btn btn-primary" id="add-item">Add</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+
                                 <div class="form-group">
-                                    <label asp-for="Closed" class="control-label"></label>
-                                    <input asp-for="Closed" class="form-control" />
-                                    <span asp-validation-for="Closed" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Notes" class="control-label"></label>
-                                    <input asp-for="Notes" class="form-control" />
-                                    <span asp-validation-for="Notes" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Personnel" class="control-label"></label>
-                                    <input asp-for="Personnel" class="form-control" />
-                                    <span asp-validation-for="Personnel" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="CreatedDate" class="control-label"></label>
-                                    <input asp-for="CreatedDate" class="form-control" />
-                                    <span asp-validation-for="CreatedDate" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="ModifiedDate" class="control-label"></label>
-                                    <input asp-for="ModifiedDate" class="form-control" />
-                                    <span asp-validation-for="ModifiedDate" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <input type="submit" value="Create" class="btn btn-primary" />
+                                    <button id="btn-save" class="btn btn-primary">Create</button>
                                     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
                                 </div>
                             </form>
@@ -72,3 +111,84 @@
 
     </div>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+<script type="text/javascript">
+    let items = new Array();
+    $(function () {
+        $('#add-item').on('click', function () {
+            // prevent default action (going to the another page)
+            event.preventDefault()
+            let approver = $("#approver").val();
+            let level = $("#level").val();
+            if (!approver || !level) {
+                return
+            }
+
+            var details = items.filter(d => d.approver === approver);
+            if (details[0]) {
+                return
+            }
+                
+            items.push(
+                {
+                    approver: approver,
+                    level: level,
+                }
+            );
+
+            populateItemtable();
+        });
+
+        $('#btn-save').on('click', function () {
+            // prevent default action (going to the another page)
+            event.preventDefault()
+            let route = {
+                document: $("#workflowDocs").val(),
+                closed: $("#closed").val(),
+                notes: $("#notes").val(),
+                workFlowRouteDetails: items
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: 'saveWorkFlowRoute',
+                contentType: 'application/json',
+                data: JSON.stringify(route),
+                success: function (response) {
+                    if (response.Success) {
+
+                    }
+                },
+                failure: function (response) {
+                }
+            }).then(function () {
+                // ...
+            });
+        });
+    });
+
+    function deleteItem(approver) {
+        var index = items.findIndex(p => p.approver === approver);
+        items.splice(index, 1);
+        populateItemtable();
+    }
+
+    function populateItemtable() {
+        let itemTableRows = new Array();
+        items.forEach(i => {
+            itemTableRows.push(`<tr>
+				<td>${i.approver}</td>
+				<td>${i.level}</td>
+				<td><a class="btn-danger btn-sm" onclick="deleteItem('${i.approver}')">Delete</a></td>
+			</tr>`)
+        });
+
+        $('#items').html(itemTableRows);
+        $("#approver").val("");
+        $("#level").val("");
+    }
+</script>
+}

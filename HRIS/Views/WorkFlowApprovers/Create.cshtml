@@ -25,37 +25,68 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <form asp-action="Create">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <div class="form-group">
-                                    <label asp-for="Title" class="control-label"></label>
-                                    <input asp-for="Title" class="form-control" />
-                                    <span asp-validation-for="Title" class="text-danger"></span>
+                                <ul class="nav nav-tabs md-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#titles" role="tab">Titles</a>
+                                        <div class="slide"></div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#approvers" role="tab">Approvers</a>
+                                        <div class="slide"></div>
+                                    </li>
+                                </ul>
+
+                                <div class="tab-content card-block">
+                                    <div class="tab-pane active" id="titles" role="tabpanel">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <div class="form-group">
+                                            <label asp-for="Title" class="control-label"></label>
+                                            <select asp-for="Title" id="title" asp-items="@ViewBag.designations" class="form-control">
+                                            </select>
+                                            <span asp-validation-for="Title" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="Notes" class="control-label"></label>
+                                            <input asp-for="Notes" id="notes" class="form-control" />
+                                            <span asp-validation-for="Notes" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" id="closed" asp-for="Closed" /> @Html.DisplayNameFor(model => model.Closed)
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane" id="approvers" role="tabpanel">
+                                        <div class="form-group">
+                                            <label for="employeeNo" class="control-label">Employee</label>
+                                            <select id="employeeNo" asp-items="@ViewBag.employees" class="form-control">
+                                            </select>
+                                        </div>
+
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Approver
+                                                        </th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="items">
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <a class="btn btn-primary" id="add-item">Add</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label asp-for="Closed" class="control-label"></label>
-                                    <input asp-for="Closed" class="form-control" />
-                                    <span asp-validation-for="Closed" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Notes" class="control-label"></label>
-                                    <input asp-for="Notes" class="form-control" />
-                                    <span asp-validation-for="Notes" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Personnel" class="control-label"></label>
-                                    <input asp-for="Personnel" class="form-control" />
-                                    <span asp-validation-for="Personnel" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="CreatedDate" class="control-label"></label>
-                                    <input asp-for="CreatedDate" class="form-control" />
-                                    <span asp-validation-for="CreatedDate" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="ModifiedDate" class="control-label"></label>
-                                    <input asp-for="ModifiedDate" class="form-control" />
-                                    <span asp-validation-for="ModifiedDate" class="text-danger"></span>
-                                </div>
+                                
                                 <div class="form-group">
                                     <input type="submit" value="Create" class="btn btn-primary" />
                                 </div>
@@ -71,3 +102,80 @@
 
     </div>
 </div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+
+    <script type="text/javascript">
+    let items = new Array();
+    $(function () {
+        $('#add-item').on('click', function () {
+            // prevent default action (going to the another page)
+            event.preventDefault()
+            let employeeNo = $("#employeeNo").val();
+            if (!employeeNo) {
+                return
+            }
+
+            var details = items.filter(d => d.userCode === employeeNo);
+            if (details[0]) {
+                return
+            }
+
+            items.push(
+                {
+                    userCode: employeeNo,
+                }
+            );
+
+            populateItemtable();
+        });
+
+        $('#btn-save').on('click', function () {
+            // prevent default action (going to the another page)
+            event.preventDefault()
+            let data = {
+                title: $("#title").val(),
+                closed: $("#closed").val(),
+                notes: $("#notes").val(),
+                workFlowRouteDetails: items
+            };
+
+            $.ajax({
+                type: 'POST',
+                url: 'saveWorkFlowApprover',
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function (response) {
+                    if (response.Success) {
+
+                    }
+                },
+                failure: function (response) {
+                }
+            }).then(function () {
+                // ...
+            });
+        });
+    });
+
+    function deleteItem(userCode) {
+        var index = items.findIndex(p => p.userCode === userCode);
+        items.splice(index, 1);
+        populateItemtable();
+    }
+
+    function populateItemtable() {
+        let itemTableRows = new Array();
+        items.forEach(i => {
+            itemTableRows.push(`<tr>
+				<td>${i.userCode}</td>
+				<td><a class="btn-danger btn-sm" onclick="deleteItem('${i.userCode}')">Delete</a></td>
+			</tr>`)
+        });
+
+        $('#items').html(itemTableRows);
+        $("#employeeNo").val("");
+    }
+    </script>
+}

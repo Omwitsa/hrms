@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HRIS.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class initialmigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -475,7 +475,7 @@ namespace HRIS.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Title = table.Column<string>(nullable: true),
-                    Closed = table.Column<bool>(nullable: true),
+                    Closed = table.Column<bool>(nullable: false),
                     Notes = table.Column<string>(nullable: true),
                     Personnel = table.Column<string>(nullable: true),
                     CreatedDate = table.Column<DateTime>(nullable: true),
@@ -511,7 +511,7 @@ namespace HRIS.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     Document = table.Column<string>(nullable: true),
-                    Closed = table.Column<bool>(nullable: true),
+                    Closed = table.Column<bool>(nullable: false),
                     Notes = table.Column<string>(nullable: true),
                     Personnel = table.Column<string>(nullable: true),
                     CreatedDate = table.Column<DateTime>(nullable: true),

@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace HRIS.Migrations
 {
     [DbContext(typeof(HrDbContext))]
-    [Migration("20220225135927_Initial-Migration")]
-    partial class InitialMigration
+    [Migration("20220303163955_initial-migration")]
+    partial class initialmigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -860,7 +860,7 @@ namespace HRIS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool?>("Closed")
+                    b.Property<bool>("Closed")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("CreatedDate")
@@ -977,7 +977,7 @@ namespace HRIS.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<bool?>("Closed")
+                    b.Property<bool>("Closed")
                         .HasColumnType("bit");
 
                     b.Property<DateTime?>("CreatedDate")

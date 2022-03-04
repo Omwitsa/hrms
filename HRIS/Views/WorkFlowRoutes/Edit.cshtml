@@ -20,33 +20,19 @@
                                 <input type="hidden" asp-for="Id" />
                                 <div class="form-group">
                                     <label asp-for="Document" class="control-label"></label>
-                                    <input asp-for="Document" class="form-control" />
+                                    <select asp-for="Document" id="workflowDocs" asp-items="@ViewBag.workflowDocs" class="form-control">
+                                    </select>
                                     <span asp-validation-for="Document" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="Closed" class="control-label"></label>
-                                    <input asp-for="Closed" class="form-control" />
-                                    <span asp-validation-for="Closed" class="text-danger"></span>
                                 </div>
                                 <div class="form-group">
                                     <label asp-for="Notes" class="control-label"></label>
                                     <input asp-for="Notes" class="form-control" />
                                     <span asp-validation-for="Notes" class="text-danger"></span>
                                 </div>
-                                <div class="form-group">
-                                    <label asp-for="Personnel" class="control-label"></label>
-                                    <input asp-for="Personnel" class="form-control" />
-                                    <span asp-validation-for="Personnel" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="CreatedDate" class="control-label"></label>
-                                    <input asp-for="CreatedDate" class="form-control" />
-                                    <span asp-validation-for="CreatedDate" class="text-danger"></span>
-                                </div>
-                                <div class="form-group">
-                                    <label asp-for="ModifiedDate" class="control-label"></label>
-                                    <input asp-for="ModifiedDate" class="form-control" />
-                                    <span asp-validation-for="ModifiedDate" class="text-danger"></span>
+                                <div class="form-group form-check">
+                                    <label class="form-check-label">
+                                        <input class="form-check-input" asp-for="Closed" /> @Html.DisplayNameFor(model => model.Closed)
+                                    </label>
                                 </div>
                                 <div class="form-group">
                                     <input type="submit" value="Save" class="btn btn-primary" />

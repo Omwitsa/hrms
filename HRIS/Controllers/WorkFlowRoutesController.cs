@@ -5,16 +5,24 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HRIS.Data;
 using HRIS.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using HRIS.Constants;
+using HRIS.IProviders;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace HRIS.Controllers
 {
     public class WorkFlowRoutesController : Controller
     {
+        private readonly INotyfService _notyf;
+        private IHrProvider _hrProvider;
         private readonly HrDbContext _context;
 
-        public WorkFlowRoutesController(HrDbContext context)
+        public WorkFlowRoutesController(HrDbContext context, IHrProvider hrProvider, INotyfService notyf)
         {
             _context = context;
+            _hrProvider = hrProvider;
+            _notyf = notyf;
         }
 
         // GET: WorkFlowRoutes
@@ -44,8 +52,34 @@ namespace HRIS.Controllers
         // GET: WorkFlowRoutes/Create
         public IActionResult Create()
         {
-            ViewBag.success = true;
+            SetInitialValues();
             return View();
+        }
+
+        private void SetInitialValues()
+        {
+            ViewBag.success = true;
+            ViewBag.workflowDocs = new SelectList(ArrValues.WorkflowDocs);
+            var approvers = _context.WorkFlowApprovers.Where(d => !d.Closed)
+               .Select(d => new WorkFlowApprover
+               {
+                   Title = d.Title,
+               }).ToList();
+            ViewBag.approvers = new SelectList(approvers, "Title", "Title");
+        }
+
+        [HttpPost]
+        public JsonResult SaveWorkFlowRoute([FromBody] WorkFlowRoute route)
+        {
+            var results = _hrProvider.SaveWorkFlowRoute(route);
+            if (!results.Success)
+            {
+                _notyf.Error(results.Message);
+                return Json(results);
+            }
+                
+            _notyf.Success(results.Message);
+            return Json(results);
         }
 
         // POST: WorkFlowRoutes/Create
@@ -55,6 +89,8 @@ namespace HRIS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Document,Closed,Notes,Personnel,CreatedDate,ModifiedDate")] WorkFlowRoute workFlowRoute)
         {
+            SetInitialValues();
+
             if (_context.WorkFlowRoutes.Any(d => d.Document.ToUpper().Equals(workFlowRoute.Document.ToUpper())))
             {
                 ViewBag.success = false;
@@ -147,6 +183,12 @@ namespace HRIS.Controllers
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var workFlowRoute = await _context.WorkFlowRoutes.FindAsync(id);
+            if(workFlowRoute != null)
+            {
+                var details = await _context.WorkFlowRouteDetails.Where(d => d.WorkFlowRouteId == workFlowRoute.Id).ToListAsync();
+                if (details.Any())
+                    _context.WorkFlowRouteDetails.RemoveRange(details);
+            }
             _context.WorkFlowRoutes.Remove(workFlowRoute);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));

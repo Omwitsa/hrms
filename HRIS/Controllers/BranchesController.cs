@@ -7,22 +7,25 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HRIS.Data;
 using HRIS.Models;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace HRIS.Controllers
 {
     public class BranchesController : Controller
     {
         private readonly HrDbContext _context;
+        private readonly INotyfService _notyf;
 
-        public BranchesController(HrDbContext context)
+        public BranchesController(HrDbContext context, INotyfService notyf)
         {
             _context = context;
+            _notyf = notyf;
         }
 
         // GET: Branches
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Branches.ToListAsync());
+            return View(await _context.Branches.Where(b => !b.Name.ToUpper().Equals("ALL")).ToListAsync());
         }
 
         // GET: Branches/Details/5
@@ -87,6 +90,7 @@ namespace HRIS.Controllers
             {
                 return NotFound();
             }
+            
             return View(branch);
         }
 

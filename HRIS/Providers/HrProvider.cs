@@ -104,9 +104,17 @@ namespace HRIS.Providers
 						Success = false,
 						Message = "Kindly provide employee No"
 					};
+
 				periodResponse.Data.Name = periodResponse.Data?.Name ?? "";
 				entiledLeave.EmployeeNo = entiledLeave?.EmployeeNo ?? "";
 				entiledLeave.LeaveType = entiledLeave?.LeaveType ?? "";
+				var employee = _context.Employees.FirstOrDefault(e => e.EmployeeNo.ToUpper().Equals(entiledLeave.EmployeeNo.ToUpper()));
+				if (employee == null)
+					return new ReturnData<dynamic>
+					{
+						Success = false,
+						Message = "Sorry, Employee not found"
+					};
 				var entilements = _context.LeaveEntilements
 					.Where(e => e.EmpNo.ToUpper().Equals(entiledLeave.EmployeeNo.ToUpper())
 					&& e.LeaveType.ToUpper().Equals(entiledLeave.LeaveType.ToUpper())
@@ -120,6 +128,20 @@ namespace HRIS.Providers
 
 				var entitledDays = entilements.Select(e => e.Days).Sum();
 				var appliedDays = appliedLeave.Select(a => a.Days).Sum();
+
+				employee.LeaveGroup = employee?.LeaveGroup ?? "";
+				var rule = _context.LeaveRules
+					.FirstOrDefault(r => r.LeaveType.ToUpper().Equals(entiledLeave.LeaveType.ToUpper())
+					&& r.LeaveGroup.ToUpper().Equals(employee.LeaveGroup.ToUpper()) 
+					&& r.StartDate <= DateTime.Today
+					&& (r.EndDate == null || r.EndDate >= DateTime.Today));
+
+				if (rule != null)
+                {
+					rule.LeaveDays = rule?.LeaveDays ?? 0;
+					entitledDays += rule.LeaveDays;
+				}
+					
 				return new ReturnData<dynamic>
 				{
 					Success = true,
@@ -250,5 +272,61 @@ namespace HRIS.Providers
 
 			return (double)application.Days;
 		}
-	}
+
+        public ReturnData<dynamic> SaveWorkFlowRoute(WorkFlowRoute route)
+        {
+            try
+            {
+				if (_context.WorkFlowRoutes.Any(r => r.Document.ToUpper().Equals(route.Document.ToUpper())))
+					return new ReturnData<dynamic>
+					{
+						Success = false,
+						Message = "Sorry, Document already exist"
+					};
+				_context.WorkFlowRoutes.Add(route);
+				_context.SaveChanges();
+				return new ReturnData<dynamic>
+				{
+					Success = true,
+					Message = "Route saved successfully"
+				};
+            }
+            catch (Exception ex)
+            {
+				return new ReturnData<dynamic>
+				{
+					Success = false,
+					Message = "Sorry, An error occurred"
+				};
+			}
+        }
+
+        public ReturnData<dynamic> SaveWorkFlowApprover(WorkFlowApprover approver)
+        {
+			try
+			{
+				if (_context.WorkFlowApprovers.Any(r => r.Title.ToUpper().Equals(approver.Title.ToUpper())))
+					return new ReturnData<dynamic>
+					{
+						Success = false,
+						Message = "Sorry, Title already exist"
+					};
+				_context.WorkFlowApprovers.Add(approver);
+				_context.SaveChanges();
+				return new ReturnData<dynamic>
+				{
+					Success = true,
+					Message = "Approver saved successfully"
+				};
+			}
+			catch (Exception ex)
+			{
+				return new ReturnData<dynamic>
+				{
+					Success = false,
+					Message = "Sorry, An error occurred"
+				};
+			}
+		}
+    }
 }

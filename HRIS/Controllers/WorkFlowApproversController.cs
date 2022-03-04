@@ -5,16 +5,23 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using HRIS.Data;
 using HRIS.Models;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using AspNetCoreHero.ToastNotification.Abstractions;
+using HRIS.IProviders;
 
 namespace HRIS.Controllers
 {
     public class WorkFlowApproversController : Controller
     {
+        private readonly INotyfService _notyf;
+        private IHrProvider _hrProvider;
         private readonly HrDbContext _context;
 
-        public WorkFlowApproversController(HrDbContext context)
+        public WorkFlowApproversController(HrDbContext context, IHrProvider hrProvider, INotyfService notyf)
         {
             _context = context;
+            _hrProvider = hrProvider;
+            _notyf = notyf;
         }
 
         // GET: WorkFlowApprovers
@@ -44,8 +51,27 @@ namespace HRIS.Controllers
         // GET: WorkFlowApprovers/Create
         public IActionResult Create()
         {
-            ViewBag.success = true;
+            SetInitialValues();
             return View();
+        }
+
+        private void SetInitialValues()
+        {
+            ViewBag.success = true;
+            var designations = _context.Designations.Where(d => !d.Closed)
+               .Select(d => new Designation
+               {
+                   Name = d.Name
+               }).ToList();
+            ViewBag.designations = new SelectList(designations, "Name", "Name");
+
+            var employees = _context.Employees.Where(d => !d.Terminated)
+              .Select(d => new Employee
+              {
+                  EmployeeNo = d.EmployeeNo,
+                  Name = d.Name
+              }).ToList();
+            ViewBag.employees = new SelectList(employees, "EmployeeNo", "Name");
         }
 
         // POST: WorkFlowApprovers/Create
@@ -55,6 +81,7 @@ namespace HRIS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Title,Closed,Notes,Personnel,CreatedDate,ModifiedDate")] WorkFlowApprover workFlowApprover)
         {
+            SetInitialValues();
             //if (_context.WorkFlowApprovers.Any(d => d.Title.ToUpper().Equals(workFlowApprover.Title.ToUpper())))
             //{
             //    ViewBag.success = false;
@@ -70,6 +97,20 @@ namespace HRIS.Controllers
                 return RedirectToAction(nameof(Index));
             }
             return View(workFlowApprover);
+        }
+
+        [HttpPost]
+        public JsonResult SaveWorkFlowApprover([FromBody] WorkFlowApprover approver)
+        {
+            var results = _hrProvider.SaveWorkFlowApprover(approver);
+            if (!results.Success)
+            {
+                _notyf.Error(results.Message);
+                return Json(results);
+            }
+
+            _notyf.Success(results.Message);
+            return Json(results);
         }
 
         // GET: WorkFlowApprovers/Edit/5

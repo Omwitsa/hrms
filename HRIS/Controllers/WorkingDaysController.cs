@@ -8,16 +8,19 @@ using Microsoft.EntityFrameworkCore;
 using HRIS.Data;
 using HRIS.Models;
 using HRIS.Constants;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace HRIS.Controllers
 {
     public class WorkingDaysController : Controller
     {
         private readonly HrDbContext _context;
+        private readonly INotyfService _notyf;
 
-        public WorkingDaysController(HrDbContext context)
+        public WorkingDaysController(HrDbContext context, INotyfService notyf)
         {
             _context = context;
+            _notyf = notyf;
         }
 
         // GET: WorkingDays
@@ -47,6 +50,12 @@ namespace HRIS.Controllers
         // GET: WorkingDays/Create
         public IActionResult Create()
         {
+            SetInitialVaues();
+            return View();
+        }
+
+        private void SetInitialVaues()
+        {
             ViewBag.success = true;
             ViewBag.weekDays = new SelectList(ArrValues.WeekDays);
             ViewBag.dayTypes = new SelectList(ArrValues.DayTypes);
@@ -56,7 +65,6 @@ namespace HRIS.Controllers
                    Name = d.Name
                }).ToList();
             ViewBag.branches = new SelectList(branches, "Name", "Name");
-            return View();
         }
 
         // POST: WorkingDays/Create
@@ -66,12 +74,16 @@ namespace HRIS.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Name,Type,Branch,Notes")] WorkingDay workingDay)
         {
+            SetInitialVaues();
+            string message = "";
             var dayExist = _context.WorkingDays.Any(d => d.Name.ToUpper().Equals(workingDay.Name.ToUpper())
             && d.Branch.ToUpper().Equals(workingDay.Branch.ToUpper()));
             if (dayExist)
             {
                 ViewBag.success = false;
-                TempData["message"] = "Sorry, Working day already exist";
+                message = "Sorry, Working day already exist";
+                TempData["message"] = message;
+                _notyf.Error(message);
                 return View(workingDay);
             }
 
