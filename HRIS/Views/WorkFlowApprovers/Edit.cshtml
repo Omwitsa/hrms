@@ -17,25 +17,72 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12">
                             <form asp-action="Edit">
-                                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-                                <input type="hidden" asp-for="Id" />
-                                <div class="form-group">
-                                    <label asp-for="Title" class="control-label"></label>
-                                    <input asp-for="Title" class="form-control" />
-                                    <span asp-validation-for="Title" class="text-danger"></span>
+                                <ul class="nav nav-tabs md-tabs" role="tablist">
+                                    <li class="nav-item">
+                                        <a class="nav-link active" data-toggle="tab" href="#titles" role="tab">Titles</a>
+                                        <div class="slide"></div>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link" data-toggle="tab" href="#approvers" role="tab">Approvers</a>
+                                        <div class="slide"></div>
+                                    </li>
+                                </ul>
+
+                                <div class="tab-content card-block">
+                                    <div class="tab-pane active" id="titles" role="tabpanel">
+                                        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                                        <input type="hidden" asp-for="Id" />
+                                        <div class="form-group">
+                                            <label asp-for="Title" class="control-label"></label>
+                                            <select asp-for="Title" id="title" asp-items="@ViewBag.designations" class="form-control">
+                                            </select>
+                                            <span asp-validation-for="Title" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group">
+                                            <label asp-for="Notes" class="control-label"></label>
+                                            <input asp-for="Notes" id="notes" class="form-control" />
+                                            <span asp-validation-for="Notes" class="text-danger"></span>
+                                        </div>
+                                        <div class="form-group form-check">
+                                            <label class="form-check-label">
+                                                <input class="form-check-input" id="closed" asp-for="Closed" /> @Html.DisplayNameFor(model => model.Closed)
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="tab-pane" id="approvers" role="tabpanel">
+                                        <div class="form-group">
+                                            <label for="employeeNo" class="control-label">Employee</label>
+                                            <select id="employeeNo" asp-items="@ViewBag.employees" class="form-control">
+                                            </select>
+                                        </div>
+
+                                        <div class="table-responsive">
+                                            <table class="table">
+                                                <thead>
+                                                    <tr>
+                                                        <th>
+                                                            Approver
+                                                        </th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="items">
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <div class="row">
+                                            <div class="col-sm-2">
+                                                <a class="btn btn-primary" id="add-item">Add</a>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
+
+
                                 <div class="form-group">
-                                    <label asp-for="Notes" class="control-label"></label>
-                                    <input asp-for="Notes" class="form-control" />
-                                    <span asp-validation-for="Notes" class="text-danger"></span>
-                                </div>
-                                <div class="form-group form-check">
-                                    <label class="form-check-label">
-                                        <input class="form-check-input" asp-for="Closed" /> @Html.DisplayNameFor(model => model.Closed)
-                                    </label>
-                                </div>
-                                <div class="form-group">
-                                    <input type="submit" value="Save" class="btn btn-primary" />
+                                    <button id="btn-save" class="btn btn-primary">Save</button>
                                     <a asp-action="Index" class="btn btn-secondary">Back to List</a>
                                 </div>
                             </form>
@@ -53,5 +100,95 @@
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
 
+    <script type="text/javascript">
+    let items = new Array();
+    $(function () {
+        let title = $("#title").val();
+        $.ajax({
+            type: 'GET',
+            url: `/workFlowApprovers/fetchWorkFlowApprover?titles=${title}`,
+            contentType: 'application/json',
+            success: function (response) {
+                if (response.Success) {
+                    response.Data = response.Data ? response.Data : {};
+                    items = response.Data.WorkFlowApproverDetails;
+                    items = items ? items : new Array();
+                    populateItemtable();
+                }
+            },
+            failure: function (response) {
+            }
+        }).then(function () {
+            // ...
+        });
+
+        $('#add-item').on('click', function () {
+            // prevent default action (going to the another page)
+            event.preventDefault()
+            let employeeNo = $("#employeeNo").val();
+            if (!employeeNo) {
+                return
+            }
+
+            var details = items.filter(d => d.UserCode === employeeNo);
+            if (details[0]) {
+                return
+            }
+
+            items.push(
+                {
+                    UserCode: employeeNo,
+                }
+            );
+
+            populateItemtable();
+        });
+
+        $('#btn-save').on('click', function () {
+            // prevent default action (going to the another page)
+            event.preventDefault()
+            let data = {
+                title: $("#title").val(),
+                closed: $("#closed").is(":checked"),
+                notes: $("#notes").val(),
+                workFlowApproverDetails: items
+            };
+            $.ajax({
+                type: 'POST',
+                url: `/workFlowApprovers/saveWorkFlowApprover?isEdit=${true}`,
+                contentType: 'application/json',
+                data: JSON.stringify(data),
+                success: function (response) {
+                    if (response.Success) {
+
+                    }
+                },
+                failure: function (response) {
+                }
+            }).then(function () {
+                // ...
+            });
+        });
+    });
+
+    function deleteItem(userCode) {
+        var index = items.findIndex(p => p.UserCode === userCode);
+        items.splice(index, 1);
+        populateItemtable();
+    }
+
+    function populateItemtable() {
+        let itemTableRows = new Array();
+        items.forEach(i => {
+            itemTableRows.push(`<tr>
+				<td>${i.UserCode}</td>
+				<td><a class="btn-danger btn-sm" onclick="deleteItem('${i.UserCode}')">Delete</a></td>
+			</tr>`)
+        });
+
+        $('#items').html(itemTableRows);
+        $("#employeeNo").val("");
+    }
+    </script>
+}

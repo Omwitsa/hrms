@@ -147,14 +147,14 @@
             event.preventDefault()
             let route = {
                 document: $("#workflowDocs").val(),
-                closed: $("#closed").val(),
+                closed: $("#closed").is(":checked"),
                 notes: $("#notes").val(),
                 workFlowRouteDetails: items
             };
 
             $.ajax({
                 type: 'POST',
-                url: 'saveWorkFlowRoute',
+                url: `saveWorkFlowRoute?isEdit=${false}`,
                 contentType: 'application/json',
                 data: JSON.stringify(route),
                 success: function (response) {

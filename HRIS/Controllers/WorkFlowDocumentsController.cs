@@ -7,16 +7,24 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using HRIS.Data;
 using HRIS.Models;
+using HRIS.ViewModel;
+using HRIS.Constants;
+using HRIS.IProviders;
+using AspNetCoreHero.ToastNotification.Abstractions;
 
 namespace HRIS.Controllers
 {
     public class WorkFlowDocumentsController : Controller
     {
+        private readonly INotyfService _notyf;
+        private IHrProvider _hrProvider;
         private readonly HrDbContext _context;
 
-        public WorkFlowDocumentsController(HrDbContext context)
+        public WorkFlowDocumentsController(HrDbContext context, IHrProvider hrProvider, INotyfService notyf)
         {
             _context = context;
+            _hrProvider = hrProvider;
+            _notyf = notyf;
         }
 
         // GET: WorkFlowDocuments
@@ -82,12 +90,19 @@ namespace HRIS.Controllers
                 return NotFound();
             }
 
+            SetInitialValues();
             var workFlowDocument = await _context.WorkFlowDocuments.FindAsync(id);
             if (workFlowDocument == null)
             {
                 return NotFound();
             }
             return View(workFlowDocument);
+        }
+
+        private void SetInitialValues()
+        {
+            ViewBag.success = true;
+            ViewBag.approvalStatuses = new SelectList(ArrValues.ApprovalStatuses);
         }
 
         // POST: WorkFlowDocuments/Edit/5
@@ -157,6 +172,49 @@ namespace HRIS.Controllers
         private bool WorkFlowDocumentExists(Guid id)
         {
             return _context.WorkFlowDocuments.Any(e => e.Id == id);
+        }
+
+        [HttpGet]
+        public JsonResult FetchDocument(string no)
+        {
+            try
+            {
+                var document = _context.WorkFlowDocuments.Include(a => a.WorkFlowDocumentDetails)
+                    .FirstOrDefault(a => a.No.ToUpper().Equals(no.ToUpper()));
+                if (document == null)
+                    return Json(new ReturnData<string>
+                    {
+                        Success = false,
+                        Message = "Sorry, Document not found"
+                    });
+                return Json(new ReturnData<WorkFlowDocument>
+                {
+                    Success = true,
+                    Data = document
+                });
+            }
+            catch (Exception)
+            {
+                return Json(new ReturnData<string>
+                {
+                    Success = false,
+                    Message = "Sorry, An error occurred"
+                });
+            }
+        }
+
+        [HttpPost]
+        public JsonResult SaveDocuments([FromBody] WorkFlowDocument document, bool isEdit)
+        {
+            var results = _hrProvider.SaveDocuments(document, isEdit);
+            if (!results.Success)
+            {
+                _notyf.Error(results.Message);
+                return Json(results);
+            }
+
+            _notyf.Success(results.Message);
+            return Json(results);
         }
     }
 }

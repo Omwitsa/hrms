@@ -138,7 +138,6 @@ E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\runtimes\win\lib
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\DPCtlUruNet.dll
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\bin\Debug\netcoreapp3.1\DPUruNet.dll
-E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\HRIS.csproj.AssemblyReference.cache
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\HRIS.GeneratedMSBuildEditorConfig.editorconfig
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\HRIS.AssemblyInfoInputs.cache
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\HRIS.AssemblyInfo.cs
@@ -343,3 +342,4 @@ E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\HRIS.csproj.Copy
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\HRIS.dll
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\HRIS.pdb
 E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\HRIS.genruntimeconfig.cache
+E:\Newtech\SourceCode\C#\HRIS\HRIS\HRIS\obj\Debug\netcoreapp3.1\HRIS.csproj.AssemblyReference.cache

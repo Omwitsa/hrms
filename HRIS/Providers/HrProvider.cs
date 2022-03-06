@@ -273,16 +273,35 @@ namespace HRIS.Providers
 			return (double)application.Days;
 		}
 
-        public ReturnData<dynamic> SaveWorkFlowRoute(WorkFlowRoute route)
+        public ReturnData<dynamic> SaveWorkFlowRoute(WorkFlowRoute route, bool isEdit)
         {
             try
             {
-				if (_context.WorkFlowRoutes.Any(r => r.Document.ToUpper().Equals(route.Document.ToUpper())))
-					return new ReturnData<dynamic>
-					{
-						Success = false,
-						Message = "Sorry, Document already exist"
-					};
+                if (isEdit)
+                {
+					var savedDocument = _context.WorkFlowRoutes.FirstOrDefault(d => d.Document.ToUpper().Equals(route.Document.ToUpper()));
+					if(savedDocument != null)
+                    {
+						var details = _context.WorkFlowRouteDetails.Where(d => d.WorkFlowRouteId == savedDocument.Id);
+						if (details.Any())
+							_context.WorkFlowRouteDetails.RemoveRange(details);
+						_context.WorkFlowRoutes.Remove(savedDocument);
+                    }
+                }
+                else
+                {
+					if (_context.WorkFlowRoutes.Any(r => r.Document.ToUpper().Equals(route.Document.ToUpper())))
+						return new ReturnData<dynamic>
+						{
+							Success = false,
+							Message = "Sorry, Document already exist"
+						};
+				}
+
+				route.WorkFlowRouteDetails.ToList().ForEach(d =>
+				{
+					d.WorkFlowRouteId = null;
+				});
 				_context.WorkFlowRoutes.Add(route);
 				_context.SaveChanges();
 				return new ReturnData<dynamic>
@@ -301,16 +320,35 @@ namespace HRIS.Providers
 			}
         }
 
-        public ReturnData<dynamic> SaveWorkFlowApprover(WorkFlowApprover approver)
+        public ReturnData<dynamic> SaveWorkFlowApprover(WorkFlowApprover approver, bool isEdit)
         {
 			try
 			{
-				if (_context.WorkFlowApprovers.Any(r => r.Title.ToUpper().Equals(approver.Title.ToUpper())))
-					return new ReturnData<dynamic>
+                if (isEdit)
+                {
+					var savedApprover = _context.WorkFlowApprovers.FirstOrDefault(r => r.Title.ToUpper().Equals(approver.Title.ToUpper()));
+					if (savedApprover != null)
 					{
-						Success = false,
-						Message = "Sorry, Title already exist"
-					};
+						var details = _context.WorkFlowApproverDetails.Where(a => a.WorkFlowApproverId == savedApprover.Id);
+						if (details.Any())
+							_context.WorkFlowApproverDetails.RemoveRange(details);
+						_context.WorkFlowApprovers.Remove(savedApprover);
+					}
+				}
+                else
+                {
+					if (_context.WorkFlowApprovers.Any(r => r.Title.ToUpper().Equals(approver.Title.ToUpper())))
+						return new ReturnData<dynamic>
+						{
+							Success = false,
+							Message = "Sorry, Title already exist"
+						};
+				}
+
+				approver.WorkFlowApproverDetails.ToList().ForEach(d =>
+				{
+					d.WorkFlowApproverId = null;
+				});
 				_context.WorkFlowApprovers.Add(approver);
 				_context.SaveChanges();
 				return new ReturnData<dynamic>
@@ -328,5 +366,52 @@ namespace HRIS.Providers
 				};
 			}
 		}
+
+        public ReturnData<dynamic> SaveDocuments(WorkFlowDocument document, bool isEdit)
+        {
+            try
+            {
+				if (isEdit)
+				{
+					var savedDocument = _context.WorkFlowDocuments.FirstOrDefault(r => r.No.ToUpper().Equals(document.No.ToUpper()));
+					if (savedDocument != null)
+					{
+						var details = _context.WorkFlowDocumentDetails.Where(a => a.WorkFlowDocumentId == savedDocument.Id);
+						if (details.Any())
+							_context.WorkFlowDocumentDetails.RemoveRange(details);
+						_context.WorkFlowDocuments.Remove(savedDocument);
+					}
+				}
+				else
+				{
+					if (_context.WorkFlowDocuments.Any(r => r.No.ToUpper().Equals(document.No.ToUpper())))
+						return new ReturnData<dynamic>
+						{
+							Success = false,
+							Message = "Sorry, Document already exist"
+						};
+				}
+
+				document.WorkFlowDocumentDetails.ToList().ForEach(d =>
+				{
+					d.WorkFlowDocumentId = null;
+				});
+				_context.WorkFlowDocuments.Add(document);
+				_context.SaveChanges();
+				return new ReturnData<dynamic>
+				{
+					Success = true,
+					Message = "Document saved successfully"
+				};
+			}
+            catch (Exception)
+            {
+				return new ReturnData<dynamic>
+				{
+					Success = false,
+					Message = "Sorry, An error occurred"
+				};
+			}
+        }
     }
 }

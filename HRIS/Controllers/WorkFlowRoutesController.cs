@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using HRIS.Constants;
 using HRIS.IProviders;
 using AspNetCoreHero.ToastNotification.Abstractions;
+using HRIS.ViewModel;
 
 namespace HRIS.Controllers
 {
@@ -69,9 +70,9 @@ namespace HRIS.Controllers
         }
 
         [HttpPost]
-        public JsonResult SaveWorkFlowRoute([FromBody] WorkFlowRoute route)
+        public JsonResult SaveWorkFlowRoute([FromBody] WorkFlowRoute route, bool isEdit)
         {
-            var results = _hrProvider.SaveWorkFlowRoute(route);
+            var results = _hrProvider.SaveWorkFlowRoute(route, isEdit);
             if (!results.Success)
             {
                 _notyf.Error(results.Message);
@@ -116,6 +117,7 @@ namespace HRIS.Controllers
                 return NotFound();
             }
 
+            SetInitialValues();
             var workFlowRoute = await _context.WorkFlowRoutes.FindAsync(id);
             if (workFlowRoute == null)
             {
@@ -136,6 +138,7 @@ namespace HRIS.Controllers
                 return NotFound();
             }
 
+            SetInitialValues();
             if (ModelState.IsValid)
             {
                 try
@@ -197,6 +200,35 @@ namespace HRIS.Controllers
         private bool WorkFlowRouteExists(Guid id)
         {
             return _context.WorkFlowRoutes.Any(e => e.Id == id);
+        }
+
+        [HttpGet]
+        public JsonResult FetchWorkFlowRoutes(string document)
+        {
+            try
+            {
+                var route = _context.WorkFlowRoutes.Include(a => a.WorkFlowRouteDetails)
+                    .FirstOrDefault(a => a.Document.ToUpper().Equals(document.ToUpper()));
+                if (route == null)
+                    return Json(new ReturnData<string>
+                    {
+                        Success = false,
+                        Message = "Sorry, Route not found"
+                    });
+                return Json(new ReturnData<WorkFlowRoute>
+                {
+                    Success = true,
+                    Data = route
+                });
+            }
+            catch (Exception)
+            {
+                return Json(new ReturnData<string>
+                {
+                    Success = false,
+                    Message = "Sorry, An error occurred"
+                });
+            }
         }
     }
 }

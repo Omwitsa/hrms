@@ -88,7 +88,7 @@
                                 </div>
                                 
                                 <div class="form-group">
-                                    <input type="submit" value="Create" class="btn btn-primary" />
+                                    <button id="btn-save" class="btn btn-primary">Create</button>
                                 </div>
                             </form>
                         </div>
@@ -117,14 +117,14 @@
                 return
             }
 
-            var details = items.filter(d => d.userCode === employeeNo);
+            var details = items.filter(d => d.UserCode === employeeNo);
             if (details[0]) {
                 return
             }
 
             items.push(
                 {
-                    userCode: employeeNo,
+                    UserCode: employeeNo,
                 }
             );
 
@@ -136,14 +136,13 @@
             event.preventDefault()
             let data = {
                 title: $("#title").val(),
-                closed: $("#closed").val(),
+                closed: $("#closed").is(":checked"),
                 notes: $("#notes").val(),
-                workFlowRouteDetails: items
+                workFlowApproverDetails: items
             };
-
             $.ajax({
                 type: 'POST',
-                url: 'saveWorkFlowApprover',
+                url: `saveWorkFlowApprover?isEdit=${false}`,
                 contentType: 'application/json',
                 data: JSON.stringify(data),
                 success: function (response) {
@@ -160,7 +159,7 @@
     });
 
     function deleteItem(userCode) {
-        var index = items.findIndex(p => p.userCode === userCode);
+        var index = items.findIndex(p => p.UserCode === userCode);
         items.splice(index, 1);
         populateItemtable();
     }
@@ -169,8 +168,8 @@
         let itemTableRows = new Array();
         items.forEach(i => {
             itemTableRows.push(`<tr>
-				<td>${i.userCode}</td>
-				<td><a class="btn-danger btn-sm" onclick="deleteItem('${i.userCode}')">Delete</a></td>
+				<td>${i.UserCode}</td>
+				<td><a class="btn-danger btn-sm" onclick="deleteItem('${i.UserCode}')">Delete</a></td>
 			</tr>`)
         });
 

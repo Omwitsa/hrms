@@ -28,9 +28,15 @@ namespace HRIS.Data
             if (!context.Roles.Any())
             {
                 var roleStore = new RoleStore<IdentityRole>(context);
-                roleStore.CreateAsync(new IdentityRole(Roles.Admin.ToString()));
-                roleStore.CreateAsync(new IdentityRole(Roles.Staff.ToString()));
-                roleStore.CreateAsync(new IdentityRole(Roles.Hr.ToString()));
+                var adminRole = new IdentityRole(Roles.Admin.ToString());
+                adminRole.NormalizedName = Roles.Admin.ToString().ToUpper();
+                roleStore.CreateAsync(adminRole);
+                var staffRole = new IdentityRole(Roles.Staff.ToString());
+                staffRole.NormalizedName = Roles.Staff.ToString().ToUpper();
+                roleStore.CreateAsync(staffRole);
+                var hrRole = new IdentityRole(Roles.Hr.ToString());
+                hrRole.NormalizedName = Roles.Hr.ToString().ToUpper();
+                roleStore.CreateAsync(hrRole);
             }
             if (!context.Users.Any())
             {

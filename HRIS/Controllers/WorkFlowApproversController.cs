@@ -8,6 +8,7 @@ using HRIS.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using AspNetCoreHero.ToastNotification.Abstractions;
 using HRIS.IProviders;
+using HRIS.ViewModel;
 
 namespace HRIS.Controllers
 {
@@ -100,9 +101,9 @@ namespace HRIS.Controllers
         }
 
         [HttpPost]
-        public JsonResult SaveWorkFlowApprover([FromBody] WorkFlowApprover approver)
+        public JsonResult SaveWorkFlowApprover([FromBody] WorkFlowApprover approver, bool isEdit)
         {
-            var results = _hrProvider.SaveWorkFlowApprover(approver);
+            var results = _hrProvider.SaveWorkFlowApprover(approver, isEdit);
             if (!results.Success)
             {
                 _notyf.Error(results.Message);
@@ -121,6 +122,7 @@ namespace HRIS.Controllers
                 return NotFound();
             }
 
+            SetInitialValues();
             var workFlowApprover = await _context.WorkFlowApprovers.FindAsync(id);
             if (workFlowApprover == null)
             {
@@ -141,6 +143,7 @@ namespace HRIS.Controllers
                 return NotFound();
             }
 
+            SetInitialValues();
             if (ModelState.IsValid)
             {
                 try
@@ -188,6 +191,12 @@ namespace HRIS.Controllers
         public async Task<IActionResult> DeleteConfirmed(Guid id)
         {
             var workFlowApprover = await _context.WorkFlowApprovers.FindAsync(id);
+            if(workFlowApprover != null)
+            {
+                var details = _context.WorkFlowApproverDetails.Where(a => a.WorkFlowApproverId == workFlowApprover.Id);
+                if (details.Any())
+                    _context.WorkFlowApproverDetails.RemoveRange(details);
+            }
             _context.WorkFlowApprovers.Remove(workFlowApprover);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
@@ -196,6 +205,33 @@ namespace HRIS.Controllers
         private bool WorkFlowApproverExists(Guid id)
         {
             return _context.WorkFlowApprovers.Any(e => e.Id == id);
+        }
+
+        [HttpGet]
+        public JsonResult FetchWorkFlowApprover(string titles)
+        {
+            try
+            {
+                var approver = _context.WorkFlowApprovers.Include(a => a.WorkFlowApproverDetails)
+                    .FirstOrDefault(a => a.Title.ToUpper().Equals(titles.ToUpper()));
+                if (approver == null)
+                    return Json(new ReturnData<string>
+                    {
+                        Success = false,
+                        Message = "Sorry, Approver not found"
+                    });
+                return Json(new ReturnData<WorkFlowApprover> { 
+                    Success = true,
+                    Data = approver
+                });
+            }
+            catch (Exception)
+            {
+                return Json(new ReturnData<string> { 
+                    Success = false,
+                    Message = "Sorry, An error occurred"
+                });
+            }
         }
     }
 }

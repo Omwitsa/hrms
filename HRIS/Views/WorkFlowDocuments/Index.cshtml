@@ -7,9 +7,9 @@
 <div class="main-body">
     <div class="page-wrapper">
         <div class="page-body">
-            <p>
+            @*<p>
                 <a class="btn btn-primary" asp-action="Create">Create New</a>
-            </p>
+            </p>*@
 
             <div class="card">
                 <div class="card-header">
@@ -77,8 +77,8 @@
                                         </td>
                                         <td>
                                             <a asp-action="Edit" class="btn-warning btn-sm" asp-route-id="@item.Id">Edit</a> |
-                                            <a asp-action="Details" class="btn-info btn-sm" asp-route-id="@item.Id">Details</a> |
-                                            <a asp-action="Delete" class="btn-danger btn-sm" asp-route-id="@item.Id">Delete</a>
+                                            <a asp-action="Details" class="btn-info btn-sm" asp-route-id="@item.Id">Details</a> 
+                                            @*<a asp-action="Delete" class="btn-danger btn-sm" asp-route-id="@item.Id">Delete</a>*@
                                         </td>
                                     </tr>
                                 }
