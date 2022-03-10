@@ -105,70 +105,14 @@
     let items = new Array();
     $(function () {
         let title = $("#title").val();
-        $.ajax({
-            type: 'GET',
-            url: `/workFlowApprovers/fetchWorkFlowApprover?titles=${title}`,
-            contentType: 'application/json',
-            success: function (response) {
-                if (response.Success) {
-                    response.Data = response.Data ? response.Data : {};
-                    items = response.Data.WorkFlowApproverDetails;
-                    items = items ? items : new Array();
-                    populateItemtable();
-                }
-            },
-            failure: function (response) {
-            }
-        }).then(function () {
-            // ...
-        });
-
         $('#add-item').on('click', function () {
             // prevent default action (going to the another page)
             event.preventDefault()
-            let employeeNo = $("#employeeNo").val();
-            if (!employeeNo) {
-                return
-            }
-
-            var details = items.filter(d => d.UserCode === employeeNo);
-            if (details[0]) {
-                return
-            }
-
-            items.push(
-                {
-                    UserCode: employeeNo,
-                }
-            );
-
-            populateItemtable();
         });
 
         $('#btn-save').on('click', function () {
             // prevent default action (going to the another page)
             event.preventDefault()
-            let data = {
-                title: $("#title").val(),
-                closed: $("#closed").is(":checked"),
-                notes: $("#notes").val(),
-                workFlowApproverDetails: items
-            };
-            $.ajax({
-                type: 'POST',
-                url: `/workFlowApprovers/saveWorkFlowApprover?isEdit=${true}`,
-                contentType: 'application/json',
-                data: JSON.stringify(data),
-                success: function (response) {
-                    if (response.Success) {
-
-                    }
-                },
-                failure: function (response) {
-                }
-            }).then(function () {
-                // ...
-            });
         });
     });
 

@@ -121,52 +121,11 @@
         $('#add-item').on('click', function () {
             // prevent default action (going to the another page)
             event.preventDefault()
-            let approver = $("#approver").val();
-            let level = $("#level").val();
-            if (!approver || !level) {
-                return
-            }
-
-            var details = items.filter(d => d.approver === approver);
-            if (details[0]) {
-                return
-            }
-                
-            items.push(
-                {
-                    approver: approver,
-                    level: level,
-                }
-            );
-
-            populateItemtable();
         });
 
         $('#btn-save').on('click', function () {
             // prevent default action (going to the another page)
             event.preventDefault()
-            let route = {
-                document: $("#workflowDocs").val(),
-                closed: $("#closed").is(":checked"),
-                notes: $("#notes").val(),
-                workFlowRouteDetails: items
-            };
-
-            $.ajax({
-                type: 'POST',
-                url: `saveWorkFlowRoute?isEdit=${false}`,
-                contentType: 'application/json',
-                data: JSON.stringify(route),
-                success: function (response) {
-                    if (response.Success) {
-
-                    }
-                },
-                failure: function (response) {
-                }
-            }).then(function () {
-                // ...
-            });
         });
     });
 

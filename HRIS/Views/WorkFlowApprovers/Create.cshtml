@@ -112,49 +112,11 @@
         $('#add-item').on('click', function () {
             // prevent default action (going to the another page)
             event.preventDefault()
-            let employeeNo = $("#employeeNo").val();
-            if (!employeeNo) {
-                return
-            }
-
-            var details = items.filter(d => d.UserCode === employeeNo);
-            if (details[0]) {
-                return
-            }
-
-            items.push(
-                {
-                    UserCode: employeeNo,
-                }
-            );
-
-            populateItemtable();
         });
 
         $('#btn-save').on('click', function () {
             // prevent default action (going to the another page)
             event.preventDefault()
-            let data = {
-                title: $("#title").val(),
-                closed: $("#closed").is(":checked"),
-                notes: $("#notes").val(),
-                workFlowApproverDetails: items
-            };
-            $.ajax({
-                type: 'POST',
-                url: `saveWorkFlowApprover?isEdit=${false}`,
-                contentType: 'application/json',
-                data: JSON.stringify(data),
-                success: function (response) {
-                    if (response.Success) {
-
-                    }
-                },
-                failure: function (response) {
-                }
-            }).then(function () {
-                // ...
-            });
         });
     });
 

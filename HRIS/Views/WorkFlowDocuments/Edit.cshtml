@@ -145,68 +145,14 @@
     let items = new Array();
     $(function () {
         let no = $("#no").val();
-        $.ajax({
-            type: 'GET',
-            url: `/workFlowDocuments/fetchDocument?no=${no}`,
-            contentType: 'application/json',
-            success: function (response) {
-                if (response.Success) {
-                    response.Data = response.Data ? response.Data : {};
-                    items = response.Data.WorkFlowDocumentDetails;
-                    items = items ? items : new Array();
-                    populateItemtable();
-                }
-            },
-            failure: function (response) {
-            }
-        }).then(function () {
-            // ...
-        });
-
         $('#edit-item').on('click', function () {
             // prevent default action (going to the another page)
             event.preventDefault()
-             let status = $("#status").val();
-            let userCode = $("#userCode").val();
-            if (!status || !userCode) {
-                return
-            }
-            // userCode
-            var details = items.filter(d => d.UserCode === userCode);
-            if (details[0]) {
-                details[0].Status = status;
-            }
-
-            populateItemtable();
         });
 
         $('#btn-save').on('click', function () {
             // prevent default action (going to the another page)
             event.preventDefault()
-            let data = {
-                id: $("#id").val(),
-                type: $("#type").val(),
-                description: $("#description").val(),
-                userRef: $("#id").val(),
-                latestApprover: $("#type").val(),
-                finalStatus: $("#description").val(),
-                workFlowDocumentDetails: items
-            };
-            $.ajax({
-                type: 'POST',
-                url: `/workFlowDocuments/saveDocuments?isEdit=${true}`,
-                contentType: 'application/json',
-                data: JSON.stringify(data),
-                success: function (response) {
-                    if (response.Success) {
-
-                    }
-                },
-                failure: function (response) {
-                }
-            }).then(function () {
-                // ...
-            });
         });
     });
 

@@ -8988,11 +8988,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Newtech\\SourceCode\\C#\\HRIS\\HRIS\\HRIS\\HRIS.csproj",
+      "projectUniqueName": "E:\\Newtech\\SourceCode\\C#\\HRIS\\hrms\\HRIS\\HRIS.csproj",
       "projectName": "HRIS",
-      "projectPath": "E:\\Newtech\\SourceCode\\C#\\HRIS\\HRIS\\HRIS\\HRIS.csproj",
+      "projectPath": "E:\\Newtech\\SourceCode\\C#\\HRIS\\hrms\\HRIS\\HRIS.csproj",
       "packagesPath": "C:\\Users\\wilso\\.nuget\\packages\\",
-      "outputPath": "E:\\Newtech\\SourceCode\\C#\\HRIS\\HRIS\\HRIS\\obj\\",
+      "outputPath": "E:\\Newtech\\SourceCode\\C#\\HRIS\\hrms\\HRIS\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\wilso\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -9066,6 +9066,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
+        "downloadDependencies": [
+          {
+            "name": "Microsoft.NETCore.App.Host.win-x64",
+            "version": "[3.1.23, 3.1.23]"
+          }
+        ],
         "frameworkReferences": {
           "Microsoft.AspNetCore.App": {
             "privateAssets": "none"
@@ -9074,7 +9080,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.405\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.406\\RuntimeIdentifierGraph.json"
       }
     }
   }

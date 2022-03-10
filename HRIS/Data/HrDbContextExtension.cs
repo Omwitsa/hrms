@@ -1,5 +1,4 @@
-﻿using HRIS.Constants;
-using HRIS.Models;
+﻿using HRIS.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System;
@@ -25,19 +24,6 @@ namespace HRIS.Data
                     Name = "All"
                 });
             }
-            if (!context.Roles.Any())
-            {
-                var roleStore = new RoleStore<IdentityRole>(context);
-                var adminRole = new IdentityRole(Roles.Admin.ToString());
-                adminRole.NormalizedName = Roles.Admin.ToString().ToUpper();
-                roleStore.CreateAsync(adminRole);
-                var staffRole = new IdentityRole(Roles.Staff.ToString());
-                staffRole.NormalizedName = Roles.Staff.ToString().ToUpper();
-                roleStore.CreateAsync(staffRole);
-                var hrRole = new IdentityRole(Roles.Hr.ToString());
-                hrRole.NormalizedName = Roles.Hr.ToString().ToUpper();
-                roleStore.CreateAsync(hrRole);
-            }
             if (!context.Users.Any())
             {
                 var user = new ApplicationUser
@@ -59,7 +45,6 @@ namespace HRIS.Data
                 user.PasswordHash = hashed;
                 var userManager = new UserStore<ApplicationUser>(context);
                 var result = userManager.CreateAsync(user);
-                userManager.AddToRoleAsync(user, Roles.Admin.ToString());
             }
 
             context.SaveChanges();

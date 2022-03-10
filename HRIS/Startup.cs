@@ -86,7 +86,6 @@ namespace HRIS
             {
                 var context = serviceScope.ServiceProvider.GetRequiredService<HrDbContext>();
                 context.Database.Migrate();
-                context.EnsureDatabaseSeeded();
             }
         }
     }
