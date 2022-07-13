@@ -10,7 +10,9 @@ namespace HRIS.Models
 		public string Name { get; set; }
 		public bool Closed { get; set; }
 		public string Notes { get; set; }
+		[Display(Name = "Is Calender Days")]
 		public bool IsCalenderDays { get; set; }
+		[Display(Name = "Exclude Holidays")]
 		public bool ExcludeHolidays { get; set; }
 		public string Personnel { get; set; }
 		public DateTime? CreatedDate { get; set; }

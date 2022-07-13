@@ -688,3 +688,14 @@ E:\Newtech\SourceCode\C#\HRIS\hrms\HRIS\obj\Debug\netcoreapp3.1\HRIS.csproj.Copy
 E:\Newtech\SourceCode\C#\HRIS\hrms\HRIS\obj\Debug\netcoreapp3.1\HRIS.dll
 E:\Newtech\SourceCode\C#\HRIS\hrms\HRIS\obj\Debug\netcoreapp3.1\HRIS.pdb
 E:\Newtech\SourceCode\C#\HRIS\hrms\HRIS\obj\Debug\netcoreapp3.1\HRIS.genruntimeconfig.cache
+E:\Newtech\SourceCode\CSharp\HRIS\hrms\HRIS\obj\Debug\netcoreapp3.1\HRIS.csproj.AssemblyReference.cache
+E:\Newtech\SourceCode\CSharp\HRIS\hrms\HRIS\obj\Debug\netcoreapp3.1\HRIS.GeneratedMSBuildEditorConfig.editorconfig
+E:\Newtech\SourceCode\CSharp\HRIS\hrms\HRIS\obj\Debug\netcoreapp3.1\HRIS.AssemblyInfoInputs.cache
+E:\Newtech\SourceCode\CSharp\HRIS\hrms\HRIS\obj\Debug\netcoreapp3.1\HRIS.AssemblyInfo.cs
+E:\Newtech\SourceCode\CSharp\HRIS\hrms\HRIS\obj\Debug\netcoreapp3.1\HRIS.csproj.CoreCompileInputs.cache
+E:\Newtech\SourceCode\CSharp\HRIS\hrms\HRIS\obj\Debug\netcoreapp3.1\HRIS.MvcApplicationPartsAssemblyInfo.cs
+E:\Newtech\SourceCode\CSharp\HRIS\hrms\HRIS\obj\Debug\netcoreapp3.1\HRIS.MvcApplicationPartsAssemblyInfo.cache
+E:\Newtech\SourceCode\CSharp\HRIS\hrms\HRIS\obj\Debug\netcoreapp3.1\HRIS.RazorAssemblyInfo.cache
+E:\Newtech\SourceCode\CSharp\HRIS\hrms\HRIS\obj\Debug\netcoreapp3.1\HRIS.RazorAssemblyInfo.cs
+E:\Newtech\SourceCode\CSharp\HRIS\hrms\HRIS\obj\Debug\netcoreapp3.1\HRIS.dll
+E:\Newtech\SourceCode\CSharp\HRIS\hrms\HRIS\obj\Debug\netcoreapp3.1\HRIS.pdb

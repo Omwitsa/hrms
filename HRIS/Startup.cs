@@ -36,6 +36,7 @@ namespace HRIS
             .AddDefaultTokenProviders();
 
             services.AddTransient<IHrProvider, HrProvider>();
+            services.AddTransient<IScannerProvider, ScannerProvider>();
             services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.TopCenter; });
             services.AddControllersWithViews();
             services.AddRazorPages();

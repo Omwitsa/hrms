@@ -60,6 +60,7 @@ namespace HRIS.Data
         public virtual DbSet<Division> Divisions { get; set; }
         public virtual DbSet<EmpCategory> EmpCategories { get; set; }
         public virtual DbSet<Employee> Employees { get; set; }
+        public virtual DbSet<Attendance> Attendances { get; set; }
         public virtual DbSet<EmployeeDependant> EmployeeDependants { get; set; }
         public virtual DbSet<Holiday> Holidays { get; set; }
         public virtual DbSet<HRSetup> HRSetup { get; set; }
@@ -75,6 +76,7 @@ namespace HRIS.Data
         public virtual DbSet<WorkingDay> WorkingDays { get; set; }
         public virtual DbSet<SystemSetup> SystemSetup { get; set; }
         public virtual DbSet<LoginLogs> LoginLogs { get; set; }
+        public virtual DbSet<Fingerprint> Fingerprints { get; set; }
         public virtual DbSet<WorkFlowApprover> WorkFlowApprovers { get; set; }
         public virtual DbSet<WorkFlowApproverDetail> WorkFlowApproverDetails { get; set; }
         public virtual DbSet<WorkFlowDocument> WorkFlowDocuments { get; set; }

@@ -6,12 +6,18 @@ namespace HRIS.Models
 	public class LeaveApplication
 	{
 		[Key]
+		[Display(Name = "Leave No.")]
 		public string LeaveNo { get; set; }
 		[Required]
+		[Display(Name = "Employee No.")]
 		public string EmployeeNo { get; set; }
+		[Display(Name = "Start Date")]
 		public DateTime? StartDate { get; set; }
+		[Display(Name = "End Date")]
 		public DateTime? EndDate { get; set; }
+		[Display(Name = "Start Time")]
 		public string StartTime { get; set; }
+		[Display(Name = "End Time")]
 		public string EndTime { get; set; }
 		public double? Days { get; set; }
 		[Required]

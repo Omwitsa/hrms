@@ -5,9 +5,7 @@ namespace HRIS.Models
 {
     public class ApplicationUser : IdentityUser
     {
-        [Display(Name = "First Name")]
-        public string FirstName { get; set; }
-        [Display(Name = "Last Name")]
-        public string LastName { get; set; }
+        [Display(Name = "Employee No.")]
+        public string EmployeeNo { get; set; }
     }
 }

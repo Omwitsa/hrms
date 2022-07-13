@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "SqxDcmygfklvSBbYi2jaMcNycHMC/29MeKQNekgTUFH0MeJOB3+2Dj2gDlMFNCSeTDAx+/yymwQo7vQWLkgJYg==",
+  "dgSpecHash": "3/Qy+ivLI3LXy9DF7PwgfBoPwkN1D1njwTRQfXDJSBrmMTUTf9BF5l52tzhXak2xR7nieAs51M98iMaROGNizA==",
   "success": true,
-  "projectFilePath": "E:\\Newtech\\SourceCode\\C#\\HRIS\\hrms\\HRIS\\HRIS.csproj",
+  "projectFilePath": "E:\\Newtech\\SourceCode\\CSharp\\HRIS\\hrms\\HRIS\\HRIS.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\wilso\\.nuget\\packages\\aspnetcorehero.toastnotification\\1.1.0\\aspnetcorehero.toastnotification.1.1.0.nupkg.sha512",
     "C:\\Users\\wilso\\.nuget\\packages\\microsoft.aspnetcore.cryptography.internal\\3.1.21\\microsoft.aspnetcore.cryptography.internal.3.1.21.nupkg.sha512",
@@ -176,7 +176,7 @@
     "C:\\Users\\wilso\\.nuget\\packages\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
     "C:\\Users\\wilso\\.nuget\\packages\\system.xml.xmldocument\\4.3.0\\system.xml.xmldocument.4.3.0.nupkg.sha512",
     "C:\\Users\\wilso\\.nuget\\packages\\system.xml.xmlserializer\\4.3.0\\system.xml.xmlserializer.4.3.0.nupkg.sha512",
-    "C:\\Users\\wilso\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.23\\microsoft.netcore.app.host.win-x64.3.1.23.nupkg.sha512"
+    "C:\\Users\\wilso\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.25\\microsoft.netcore.app.host.win-x64.3.1.25.nupkg.sha512"
   ],
   "logs": []
 }

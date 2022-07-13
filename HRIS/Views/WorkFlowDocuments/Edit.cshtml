@@ -157,7 +157,6 @@
     });
 
     function populateForm(item) {
-        item = JSON.parse(decodeURIComponent(item));
         $("#approver").val(item.Approver);
         $("#level").val(item.Level);
         $("#userCode").val(item.UserCode);
@@ -168,14 +167,12 @@
     function populateItemtable() {
         let itemTableRows = new Array();
         items.forEach(i => {
-            var item = encodeURIComponent(JSON.stringify(i));
             itemTableRows.push(`<tr>
 				<td>${i.Approver}</td>
                 <td>${i.Level}</td>
                 <td>${i.UserCode}</td>
                 <td>${i.Status}</td>
                 <td>${i.Reason}</td>
-				<td><a class="btn-info btn-sm" onclick="populateForm('${item}')">Action</a></td>
 			</tr>`)
         });
 

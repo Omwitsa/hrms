@@ -59,10 +59,7 @@ namespace HRIS.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
-                    b.Property<string>("FirstName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("LastName")
+                    b.Property<string>("EmployeeNo")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("LockoutEnabled")
@@ -109,6 +106,26 @@ namespace HRIS.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("User");
+                });
+
+            modelBuilder.Entity("HRIS.Models.Attendance", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<DateTime?>("Date")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EmpNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<TimeSpan?>("Time")
+                        .HasColumnType("time");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Attendances");
                 });
 
             modelBuilder.Entity("HRIS.Models.Bank", b =>
@@ -465,6 +482,26 @@ namespace HRIS.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("EmployeeDependants");
+                });
+
+            modelBuilder.Entity("HRIS.Models.Fingerprint", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<string>("EmpNo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Memo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Template")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Fingerprints");
                 });
 
             modelBuilder.Entity("HRIS.Models.HRSetup", b =>

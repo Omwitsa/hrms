@@ -9,8 +9,10 @@ namespace HRIS.Models
 		[Required]
 		public string Period { get; set; }
 		[Required]
+		[Display(Name = "Employee No.")]
 		public string EmpNo { get; set; }
 		[Required]
+		[Display(Name = "Leave Type")]
 		public string LeaveType { get; set; }
 		public string Type { get; set; }
 		public double? Days { get; set; }

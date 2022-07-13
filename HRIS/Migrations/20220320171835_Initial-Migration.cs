@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace HRIS.Migrations
 {
-    public partial class initialmigration : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -19,6 +19,20 @@ namespace HRIS.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AcademicRanks", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Attendances",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    EmpNo = table.Column<string>(nullable: true),
+                    Date = table.Column<DateTime>(nullable: true),
+                    Time = table.Column<TimeSpan>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Attendances", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -207,6 +221,20 @@ namespace HRIS.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Employees", x => x.EmployeeNo);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Fingerprints",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    EmpNo = table.Column<string>(nullable: true),
+                    Template = table.Column<string>(nullable: true),
+                    Memo = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Fingerprints", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -461,8 +489,7 @@ namespace HRIS.Migrations
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true)
+                    EmployeeNo = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -767,6 +794,9 @@ namespace HRIS.Migrations
                 name: "AcademicRanks");
 
             migrationBuilder.DropTable(
+                name: "Attendances");
+
+            migrationBuilder.DropTable(
                 name: "Banks");
 
             migrationBuilder.DropTable(
@@ -795,6 +825,9 @@ namespace HRIS.Migrations
 
             migrationBuilder.DropTable(
                 name: "Employees");
+
+            migrationBuilder.DropTable(
+                name: "Fingerprints");
 
             migrationBuilder.DropTable(
                 name: "Holidays");
